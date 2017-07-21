@@ -1,0 +1,344 @@
+﻿@{
+    ViewBag.Title = "ClassIndex";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div>
+    <div>
+        <div class="col-*-12">
+
+            <div id="toolbar" style="display:none">
+                <div style="float:left" class="btn btn-primary" data-toggle="modal" data-target="#addModal" onclick="AddRecord()">添加记录</div>
+            </div>
+
+            <table id="mytab" class="table table-hover"></table>
+
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="addModalLabel">添加记录</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="editRowIndex" />
+                            <input type="hidden" id="ClassRoomID" />
+                            <div class="form-group">
+                                编号：<input type="text" class="form-control" id="Code" placeholder="请输入编号" />
+                            </div>
+                            <div class="form-group">
+                                名称：<input type="text" class="form-control" id="Name" placeholder="请输入名称" />
+                            </div>
+                            <div class="form-group">
+                                类型：<input type="text" class="form-control" id="Type" placeholder="请输入类型" />
+                            </div>
+                            <div class="form-group">
+                                教师：<select class="form-control" id="TeacherID">
+                                    <option value="">请选择</option>
+                                    @{
+                                        foreach (var item in ViewBag.Teachers)
+                                        {
+                                            <option value="@item.ID">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                               <label for="StartTime" class="col-sm-2 control-label" style="padding-left:0px">开始时间</label>
+                                <div class="right col-md-4 text-left" style="padding-left:0px">     
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" id="StartTime" placeholder="请输入开始时间" />
+                                        <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+                                    </div>
+                                 </div>
+                                 <label for="StartTime" class="col-sm-2 control-label" style="padding-left:0px">结束时间</label>
+                                <div class="right col-md-4 text-left" style="padding-left:0px">     
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" id="EndTime" placeholder="请输入结束时间" />
+                                        <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="SaveChanges">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("div.icon-reorder").click(function () {
+            $('#mytab').bootstrapTable('resetView', {
+                height: tableHeight()
+            })
+        })
+        //根据窗口调整表格高度
+        $(window).resize(function () {
+            $('#mytab').bootstrapTable('resetView', {
+                height: tableHeight()
+            })
+        })
+
+        $('#mytab').bootstrapTable({
+            url: "../BasicInfo/GetClasses",//数据源
+            dataField: "rows",//服务端返回数据键值 就是说记录放的键值是rows，分页时使用总记录数的键值为total
+            sortName: "UpdateTime",//排序列
+            cache: false,
+            striped: true,//條紋行
+            clickToSelect: true,//选择行即选择checkbox
+            searchOnEnterKey: true,//ENTER键搜索
+            height: tableHeight(),//高度调整
+            search: true,//是否搜索
+            pagination: true,//是否分页
+            pageSize: 10,//单页记录数
+            pageNumber: 1,//起始页
+            pageList: [15, 20, 30, 50, 100, 10000],//分页步进值
+            sidePagination: "server",//服务端分页
+            contentType: "application/x-www-form-urlencoded",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
+            dataType: "json",//期待返回数据类型
+            method: "post",//请求方式
+            searchAlign: "left",//查询框对齐方式
+            queryParamsType: "limit",//查询参数组织方式
+            queryParams: function getParams(params) {
+                //params obj
+                params.other = "otherInfo";
+                return params;
+            },
+            searchOnEnterKey: false,//回车搜索
+            showRefresh: true,//刷新按钮
+            showColumns: true,//列选择按钮
+            buttonsAlign: "left",//按钮对齐方式
+            toolbar: "#toolbar",//指定工具栏
+            toolbarAlign: "right",//工具栏对齐方式
+            columns: [
+                {
+                    field: "Code",
+                    title: "编号",
+                    sortable: true
+                    //,titleTooltip: "this is tips"
+                },
+                {
+                    field: "Name",
+                    title: "名称",
+                    sortable: true
+                    //,titleTooltip: "this is tips"
+                },
+                {
+                    field: "Type",
+                    title: "类型",
+                    sortable: true
+                    //,titleTooltip: "this is tips"
+                },
+                 {
+                    field: "TeacherName",
+                    title: "教师",
+                    sortable: true
+                    //,titleTooltip: "this is tips"
+                },
+                {
+                    field: "StartTime",
+                    title: "开始时间",
+                    sortable: true,
+                    formatter: 'dateFormatterOnlyDate'//对本列数据做格式化
+                    //,titleTooltip: "this is tips"
+                },
+                {
+                    field: "EndTime",
+                    title: "结束时间",
+                    sortable: true,
+                    formatter: 'dateFormatterOnlyDate'//对本列数据做格式化
+                    //,titleTooltip: "this is tips"
+                },
+                {
+                    field: "UpdateTime",
+                    title: "最近修改时间",
+                    sortable: true,
+                    order: "desc",//默认排序方式
+                    formatter: 'dateFormatter'//对本列数据做格式化
+                },
+                {
+                    field: "ClassID",
+                    title: "操作",
+                    sortable: false,
+                    formatter: 'studentListLinkFormatter'//对本列数据做格式化
+                }
+            ],
+            onClickRow: function (row, $element) {
+                //$element是当前tr的jquery对象
+                //$element.css("background-color", "green");
+            },//单击row事件
+            onDblClickRow: function (row, $element) {
+
+                $("#addModalLabel").html("修改记录");
+                $("#ClassID").val(row.ClassID);
+                $("#Code").val(row.Code);
+                $("#Name").val(row.Name);
+                $("#Type").val(row.Type);
+                $("#TeacherID").val(row.TeacherID);
+                $("#StartTime").val(dateFormatterOnlyDate(row.StartTime));
+                $("#EndTime").val(dateFormatterOnlyDate(row.EndTime));
+                $("#editRowIndex").val(this.data.indexOf(row));
+                nodeObj.ClassRoomID = row.ClassRoomID;
+                nodeObj.Code = row.Code;
+                nodeObj.Name = row.Name;
+                nodeObj.Type = row.Type;
+                nodeObj.TeacherID = row.TeacherID;
+                nodeObj.StartTime = dateFormatterOnlyDate(row.StartTime);
+                nodeObj.EndTime = dateFormatterOnlyDate(row.EndTime);
+
+                $("#Code").attr('disabled', 'true');
+
+                $('#addModal').modal('toggle');
+            },
+            locale: "zh-CN",//中文支持,
+            detailView: false, //是否显示详情折叠
+            detailFormatter: function (index, row, element) {
+                var html = '';
+                $.each(row, function (key, val) {
+                    html += "<p>" + key + ":" + val + "</p>"
+                });
+                return html;
+            }
+        });
+        //MVVM绑定
+        window.nodeObj = {};
+        $('#ClassID').change(function () {
+            nodeObj.ClassID = this.value;
+        });
+        $('#Code').change(function () {
+            nodeObj.Code = this.value;
+        });
+        $('#Name').change(function () {
+            nodeObj.Name = this.value;
+        });
+        $('#Type').change(function () {
+            nodeObj.Type = this.value;
+        });
+        $('#TeacherID').change(function () {
+            nodeObj.TeacherID = this.value;
+        });
+        $('#StartTime').change(function () {
+            nodeObj.StartTime = this.value;
+        });
+        $('#EndTime').change(function () {
+            nodeObj.EndTime = this.value;
+        });
+        //保存事件
+        $("#SaveChanges").click(function () {
+            var param = {};
+            param.jsonString = JSON.stringify(nodeObj);
+            param.action = $("#editRowIndex").val() == "" ? "add" : "update";
+            $.ajax({
+                url: '@Url.Action("SaveClass", "BasicInfo")',
+                type: "POST",
+                data: param,
+                dataType: 'text',
+                success: function (data) {
+                    $('#addModal').modal('toggle');
+                    if (data == "success") {
+                        if ($("#editRowIndex").val() == "") {
+                            //新增
+                            $('#mytab').bootstrapTable('refresh');
+                        }
+                        else {
+                            //修改
+                            $('#mytab').bootstrapTable('updateRow', {
+                                index: $("#editRowIndex").val(),
+                                row: {
+                                    ClassID: $("#ClassID").val(),
+                                    Code: $("#Code").val(),
+                                    Name: $("#Name").val(),
+                                    Type: $("#Type").val(),
+                                    TeacherID: $("#TeacherID").val(),
+                                    TeacherName: $("#TeacherID").val() == "" ? "" : $("#TeacherID").find("option:selected").text(),
+                                    StartTime: $("#StartTime").val(),
+                                    EndTime: $("#EndTime").val()
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        console.log(data);
+                    }
+                }
+            });
+        });
+    })
+
+    function tableHeight() {
+        return $(window).height() * 0.85;
+    }
+
+    function infoFormatter(value, row, index) {
+        return "id:" + row.id + " name:" + row.name + " age:" + row.age;
+    }
+
+    function descriptionFormatter(value, row, index){
+        return "<span title='双击查看具体描述信息'>" + (value.length > 80 ? value.substring(0, 80) + "..." : value) + "</span>";
+    }
+
+    function studentListLinkFormatter(value, row, index){
+        return "<a href='" + '@Url.Action("ClassStudentMapIndex", "MappingInfo")' + "?classID=" + value + "'>学生信息</a>"
+    }
+
+    function AddRecord() {
+        $("#addModal").find("input[type='text']").each(function () {
+            $(this).val("");
+        });
+        $("#Type").val("");
+        nodeObj.ClassID = "0";
+        nodeObj.Code = "";
+        nodeObj.Name = "";
+        nodeObj.Type = "";
+        nodeObj.TeacherID = "";
+        nodeObj.StartTime = "";
+        nodeObj.EndTime = "";
+
+        $("#Code").removeAttr('disabled');
+
+        $("#addModalLabel").html("添加记录");
+    }
+
+//    $('#StartTimeBox').datetimepicker({
+//        language:  'zh-CN',
+//        weekStart: 1,
+//        todayBtn:  1,
+//		autoclose: 1,
+//		todayHighlight: 1,
+//		startView: 2,
+//		minView: 2,
+//		forceParse: 0
+//    });
+
+//    $('#EndTimeBox').datetimepicker({
+//        language:  'zh-CN',
+//        weekStart: 1,
+//        todayBtn:  1,
+//		autoclose: 1,
+//		todayHighlight: 1,
+//		startView: 2,
+//		minView: 2,
+//		forceParse: 0
+//    });
+
+// 日历
+$('.form_datetime').datetimepicker({
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn:  1,
+    autoclose: 1,
+});
+
+</script>
+
+
+

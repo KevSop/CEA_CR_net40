@@ -1,0 +1,14 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="Framework.NoticeButton"
+	x:Name="UserControl"
+	Width="95" d:DesignHeight="83">
+ 	<Grid x:Name="LayoutRoot">
+        <Button HorizontalAlignment="Left" Height="50" Margin="0,3,0,0" VerticalAlignment="Top" Width="80" Style="{DynamicResource ResourceKey=MainButtonstyle80}" Name="button1" Click="button1_Click" />
+		<Label HorizontalAlignment="Left" Height="25" Margin="60,0,0,0" VerticalAlignment="Top" Width="25" Name="lbl" Style="{DynamicResource ResourceKey=rLabelStyle}" />
+	</Grid>
+</UserControl>

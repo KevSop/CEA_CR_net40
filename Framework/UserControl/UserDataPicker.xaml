@@ -1,0 +1,27 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="Framework.UserDataPicker"
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	x:Name="UserControl"
+    xmlns:conver="clr-namespace:Framework"
+	d:DesignWidth="640" d:DesignHeight="480">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Border BorderThickness="1" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="304" CornerRadius="2" BorderBrush="#FFCAC3BA" Background="White" Name="b1">
+        <Canvas Margin="0,0,7,0" FocusVisualStyle="{DynamicResource buttonFocusVisual}">
+            <Label Content="预定日期" Height="48" Canvas.Left="0.169" Canvas.Top="0.002" Width="100" Background="#FFEEE7DE" FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center"  Foreground="#FF776B5F" Name="lbl" Padding="10,0,0,1"/>
+            <DatePicker conver:DatePickerCalendar.IsMonthYear="True" conver:DatePickerDateFormat.DateFormat="yyyy-MM"  Height="50" Canvas.Left="115.168" Canvas.Top="0.002" Width="171.832" BorderThickness="0" VerticalContentAlignment="Center" FontSize="14" FontFamily="Arial" SelectedDate="{Binding ElementName=UserControl,Path=SelectedDate}" CalendarStyle="{DynamicResource styleCalendar}" Foreground="#FF776B5F" GotFocus="DatePicker_GotFocus" LostFocus="DatePicker_LostFocus" />
+        </Canvas>
+    </Border>
+</UserControl>

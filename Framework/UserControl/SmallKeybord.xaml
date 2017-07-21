@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Framework.SmallKeybord"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="220" Width="340">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Height="220" Width="340">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="85"/>
+            <ColumnDefinition Width="85"/>
+            <ColumnDefinition Width="85"/>
+            <ColumnDefinition Width="85"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Width="80" Height="50" Content="7" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="0" Grid.Column="1" Width="80" Height="50" Content="8" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="0" Grid.Column="2" Width="80" Height="50" Content="9" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="0" Grid.Column="3" Width="80" Height="50" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=DeleteButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="1" Grid.Column="0" Width="80" Height="50" Content="4" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="1" Grid.Column="1" Width="80" Height="50" Content="5" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="1" Grid.Column="2" Width="80" Height="50" Content="6" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="1" Grid.Column="3" Grid.RowSpan="3" Width="80" Height="160" Content="Enter" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=confirmButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="2" Grid.Column="0" Width="80" Height="50" Content="1" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="2" Grid.Column="1" Width="80" Height="50" Content="2" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="2" Grid.Column="2" Width="80" Height="50" Content="3" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="3" Grid.Column="0" Width="80" Height="50" Content="0" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="3" Grid.Column="1" Width="80" Height="50" Content="." FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="3" Grid.Column="2" Width="80" Height="50" Content="C" FontFamily="Arial" FontSize="24" Style="{StaticResource ResourceKey=NumButtonStyle}" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Name="btnC" Click="btnC_Click"/>
+    </Grid>
+</UserControl>

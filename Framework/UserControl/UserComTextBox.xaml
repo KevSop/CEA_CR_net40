@@ -1,0 +1,23 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="Framework.UserComTextBox"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderBrush="#FFCAC3BA" BorderThickness="1" HorizontalAlignment="Left" Height="52" VerticalAlignment="Top" Width="304" Background="White" CornerRadius="2" Name="b1">
+		<Canvas Margin="-1,0">
+            <ComboBox Height="50" Width="136" BorderThickness="0"  FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center" Padding="10,3,4,3" SelectedIndex="3" Style="{DynamicResource ResourceKey=SingleComboboxstyle}" ItemContainerStyle="{DynamicResource ResourceKey=ComboBoxItemStyle}" GotFocus="ComboBox_GotFocus" LostFocus="ComboBox_LostFocus" ItemsSource="{Binding ElementName=UserControl,Path=ItemSource}" SelectedValue="{Binding ElementName=UserControl,Path=SelectedValue}" DropDownOpened="cbo_DropDownOpened" DropDownClosed="cbo_DropDownClosed" Name="cbo"  />
+            <TextBox Height="50" Canvas.Left="137" TextWrapping="Wrap" Width="165" BorderThickness="0" FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center" Padding="10,0,0,0" Foreground="#776b5f" Text="{Binding ElementName=UserControl,Path=Text}" LostFocus="TextBox_LostFocus" GotFocus="TextBox_GotFocus" Name="txt" />
+		</Canvas>
+	</Border>
+</UserControl>

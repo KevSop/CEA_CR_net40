@@ -1,0 +1,31 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+     xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+	mc:Ignorable="d"
+	x:Class="Framework.TabButton"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480">
+	<UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+	<Grid x:Name="LayoutRoot">
+		<Button Content="Button" Name="button" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="60" Style="{DynamicResource TabButton}" Click="button1_Click" />
+        <ed:RegularPolygon Name="regularPolygon" InnerRadius="1" Margin="25.574,49.311,0,0" PointCount="3" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="7.259" RenderTransformOrigin="0.5,0.5" Fill="{x:Null}" Height="3.48" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ed:RegularPolygon.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="179.491"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ed:RegularPolygon.RenderTransform>
+        </ed:RegularPolygon>
+    </Grid>
+</UserControl>
