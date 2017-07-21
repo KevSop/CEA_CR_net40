@@ -16,6 +16,9 @@
                 <Framework:DishesButton x:Name="RoomPart" HorizontalAlignment="Left" Margin="150,240,0,0" VerticalAlignment="Top" DishesName="教室查询"/>
                 <Framework:DishesButton x:Name="TeacherPart" HorizontalAlignment="Left" Margin="450,240,0,50" VerticalAlignment="Top" DishesName="教师查询"/>
                 <Framework:DishesButton x:Name="StudentPart" HorizontalAlignment="Left" Margin="750,240,0,50" VerticalAlignment="Top" DishesName="学员查询"/>
+
+                <TextBlock Text="关注东航微信公众号" Margin="890,328,0,0" FontSize="10" />
+                <Image Height="50" HorizontalAlignment="Left" Margin="910,340,0,0" Name="imageWX" Stretch="Fill" VerticalAlignment="Top" Width="50" />
             </Grid>
         </Viewbox>
     </Grid>

@@ -236,6 +236,7 @@
     <Resource Include="UserControl\confirm-bg-hover.png" />
     <Resource Include="UserControl\confirm-bg.png" />
     <Resource Include="UserControl\book-icon.png" />
+    <Content Include="UserControl\company1.jpg" />
     <Content Include="UserControl\gray-btn-active.png" />
     <Content Include="UserControl\gray-btn-disabled.png" />
     <Content Include="UserControl\gray-btn.png" />

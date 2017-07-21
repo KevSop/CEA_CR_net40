@@ -63,7 +63,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="IBatisNet.Common, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -221,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\sky.png" />
+    <Resource Include="Images\wxgzh.jpg" />
     <Content Include="Lib\Castle.DynamicProxy.dll" />
     <Resource Include="Lib\Castle.DynamicProxy.license.txt" />
     <Content Include="Lib\fastJSON.dll" />
@@ -250,9 +251,9 @@
     <Folder Include="bin\Debug\" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.0 %28x86 和 x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
