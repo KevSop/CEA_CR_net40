@@ -22,6 +22,9 @@ namespace CEA_EDU.Web.Controllers
 {
     public class DigitalContentController : BaseController
     {
+        public static string WebHost = ConfigurationManager.AppSettings["WebHost"];
+        public static string DigitalContentRootPath = ConfigurationManager.AppSettings["DigitalContentRootPath"];
+
         public static List<string> PictureExtName = new List<string>(){".bmp", ".gif", ".jpg", ".jpeg", ".png"};
         public static List<string> VideoExtName = new List<string>() { ".avi", ".rmvb", ".rm", ".mpg", ".mpeg", ".wmv", ".mp4", ".mkv" };
 
@@ -47,14 +50,12 @@ namespace CEA_EDU.Web.Controllers
             string category = HttpContext.Request.Params["category"];   //资源类别-共享文件夹2级目录（公司介绍、校园介绍）
             string type = HttpContext.Request.Params["type"];           //图片：1， 视频：2
 
-            string rootPath = "I:\\东航数字资源文件";
+            string rootPath = DigitalContentRootPath;
             if (!Directory.Exists(rootPath))
             {
                 HttpContext.Response.Write("");
                 return;
             }
-
-            //"http://10.63.15.136"
 
             string[] digitalContentList = Directory.GetFiles(Path.Combine(rootPath, category));
 
@@ -65,7 +66,7 @@ namespace CEA_EDU.Web.Controllers
                     Category = category,
                     Type = GetFileType(Path.GetExtension(fileName)),
                     Name = Path.GetFileNameWithoutExtension(fileName),
-                    Path = "http://localhost/CEA_EDU/DigitalContent/GetByPath?path=" + Server.UrlEncode(fileName.Replace(Path.Combine(rootPath), ""))   
+                    Path = "http://" + WebHost + "/CEA_EDU/DigitalContent/GetByPath?path=" + Server.UrlEncode(fileName.Replace(Path.Combine(rootPath), ""))   
                 };
 
                 list.Add(digitalContentEntity);
@@ -111,7 +112,7 @@ namespace CEA_EDU.Web.Controllers
 
         public void GetByPath(string path)
         {
-            string rootPath = "I:\\东航数字资源文件";
+            string rootPath = DigitalContentRootPath;
             path = Path.Combine(rootPath, Server.UrlDecode(path.Trim('\\')));
             if (System.IO.File.Exists(path))
             {

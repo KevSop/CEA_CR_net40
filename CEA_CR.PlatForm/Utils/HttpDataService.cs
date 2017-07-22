@@ -26,7 +26,7 @@ namespace CEA_CR.PlatForm.Utils
             //return result;
             //#endregion
 
-            string cacheKey = string.Format("course:{0}", classRoomId);
+            string cacheKey = string.Format("course:{0}", classRoomId.ToUpper());
             result = CacheHelper.CacheManager.Get<List<CurrentCourseItem>>(cacheKey);
             if (result == null || result.Count == 0)
             {
