@@ -14,28 +14,31 @@ namespace CEA_EDU.Web.Controllers
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            //判定登录
-            if (SessionHelper.CurrentUser == null)
+            if (!filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true) && !filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true))
             {
-                filterContext.Result = RedirectToRoute(new { Controller = "Account", Action = "Login", returnUrl = Request.Url.ToString() });
-            }
-            ViewBag.CurrentPageRights = "unknow";
-            if (!"Home".Equals(filterContext.RequestContext.RouteData.Values["controller"].ToString()))
-            {   
-		        //判定访问权限
-                string url = Request.Url.LocalPath.TrimStart('/');
-                if (Request.ApplicationPath != "/")
+                //判定登录
+                if (SessionHelper.CurrentUser == null)
                 {
-                     url = Request.Url.LocalPath.Replace(Request.ApplicationPath, "").TrimStart('/');
+                    filterContext.Result = RedirectToRoute(new { Controller = "Account", Action = "Login", returnUrl = Request.Url.ToString() });
                 }
-                string result = HasVisitRights(url);
-                if (result == "deny")
-                    filterContext.Result = RedirectToRoute(new { Controller = "Home", Action = "Index" });
-                else
+                ViewBag.CurrentPageRights = "unknow";
+                if (!"Home".Equals(filterContext.RequestContext.RouteData.Values["controller"].ToString()))
                 {
-                    ViewBag.CurrentPageRights = result;
-                }
+                    //判定访问权限
+                    string url = Request.Url.LocalPath.TrimStart('/');
+                    if (Request.ApplicationPath != "/")
+                    {
+                        url = Request.Url.LocalPath.Replace(Request.ApplicationPath, "").TrimStart('/');
+                    }
+                    string result = HasVisitRights(url);
+                    if (result == "deny")
+                        filterContext.Result = RedirectToRoute(new { Controller = "Home", Action = "Index" });
+                    else
+                    {
+                        ViewBag.CurrentPageRights = result;
+                    }
 
+                }
             }
 
             base.OnActionExecuting(filterContext);
