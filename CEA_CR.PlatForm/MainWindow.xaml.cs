@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CEA_CR.PlatForm.Views;
+using System.Threading;
 
 namespace CEA_CR.PlatForm
 {
@@ -77,13 +78,15 @@ namespace CEA_CR.PlatForm
         void CompusPart_ButtonClick(object sender, RoutedEventArgs e)
         {
             //原主界面不用管，新打开的在上层
-            CompusPageView ci = new CompusPageView();
+            //CompusPageView ci = new CompusPageView();
+            WebBrowserPageView ci = new WebBrowserPageView(2);
             ci.Show();
         }
         void CompanyPart_ButtonClick(object sender, RoutedEventArgs e)
         {
             //原主界面不用管，新打开的在上层
-            CompanyPageView ci = new CompanyPageView();
+            //CompanyPageView ci = new CompanyPageView();
+            WebBrowserPageView ci = new WebBrowserPageView(1);
             ci.Show();
         }
     }

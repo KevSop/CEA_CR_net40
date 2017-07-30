@@ -180,6 +180,7 @@
     <Compile Include="Models\DicViewModel.cs" />
     <Compile Include="Models\LoginUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\CacheUtility.cs" />
     <Compile Include="Utils\SessionHelper.cs" />
     <Compile Include="Utils\SystemStatic.cs" />
   </ItemGroup>
@@ -1871,7 +1872,6 @@
     <Content Include="FlatLab\bootstrap-table\src\locale\bootstrap-table-vi-VN.js" />
     <Content Include="FlatLab\bootstrap-table\src\locale\bootstrap-table-zh-CN.js" />
     <Content Include="FlatLab\bootstrap-table\src\locale\bootstrap-table-zh-TW.js" />
-    <Content Include="FlatLab\html5media.min.js" />
     <Content Include="FlatLab\css\bootstrap-reset.css" />
     <Content Include="FlatLab\css\bootstrap-theme.css" />
     <Content Include="FlatLab\css\bootstrap-theme.min.css" />
@@ -1879,6 +1879,8 @@
     <Content Include="FlatLab\css\bootstrap.min.css" />
     <Content Include="FlatLab\css\gallery.css" />
     <Content Include="FlatLab\css\image-crop.css" />
+    <Content Include="FlatLab\css\nanogallery.css" />
+    <Content Include="FlatLab\css\nanogallery_clean.css" />
     <Content Include="FlatLab\css\navbar-fixed-top.css" />
     <Content Include="FlatLab\css\owl.carousel.css" />
     <Content Include="FlatLab\css\style-responsive.css" />
@@ -1915,6 +1917,7 @@
     <Content Include="FlatLab\img\checkbox\check-on.png" />
     <Content Include="FlatLab\img\checkbox\radio-off.png" />
     <Content Include="FlatLab\img\checkbox\radio-on.png" />
+    <Content Include="FlatLab\img\company.jpg" />
     <Content Include="FlatLab\img\customSelect-arrow.gif" />
     <Content Include="FlatLab\img\file-search\ai.png" />
     <Content Include="FlatLab\img\file-search\doc.png" />
@@ -1975,6 +1978,8 @@
     <Content Include="FlatLab\js\bootstrap.js" />
     <Content Include="FlatLab\js\bootstrap.min.js" />
     <Content Include="FlatLab\js\common-scripts.js" />
+    <Content Include="FlatLab\js\jquery.nanogallery.js" />
+    <Content Include="FlatLab\js\jquery.nanogallery.min.js" />
     <Content Include="FlatLab\js\jquery.tmpl.min.js" />
     <Content Include="FlatLab\js\count.js" />
     <Content Include="FlatLab\js\dynamic-table.js" />
@@ -2017,6 +2022,13 @@
     <Content Include="FlatLab\js\tasks.js" />
     <Content Include="FlatLab\js\toucheffects.js" />
     <Content Include="FlatLab\knockout-3.4.0.js" />
+    <Content Include="FlatLab\nanogallery\css\loading.gif" />
+    <Content Include="FlatLab\nanogallery\css\nanogallery.css" />
+    <Content Include="FlatLab\nanogallery\css\themes\clean\loading.gif" />
+    <Content Include="FlatLab\nanogallery\css\themes\clean\nanogallery_clean.css" />
+    <Content Include="FlatLab\nanogallery\jquery.nanogallery.js" />
+    <Content Include="FlatLab\nanogallery\jquery.nanogallery.min.js" />
+    <Content Include="FlatLab\nanogallery\jquery.transit.min.js" />
     <Content Include="FlatLab\toastr\build\toastr.css" />
     <Content Include="FlatLab\toastr\build\toastr.min.css" />
     <Content Include="FlatLab\toastr\build\toastr.min.js" />
@@ -2447,6 +2459,15 @@
     <Content Include="RefDlls\NPOI.2.1.3.1\NPOI.2.1.3.1.nuspec" />
     <None Include="FlatLab\hivideo\assets\images\Thumbs.db" />
     <None Include="FlatLab\hivideo\assets\video.mp4" />
+    <None Include="FlatLab\nanogallery\css\font\nano_icon_font.eot" />
+    <None Include="FlatLab\nanogallery\css\font\nano_icon_font.svg" />
+    <None Include="FlatLab\nanogallery\css\font\nano_icon_font.ttf" />
+    <None Include="FlatLab\nanogallery\css\font\nano_icon_font.woff" />
+    <None Include="FlatLab\nanogallery\css\themes\clean\font\nano_icon_font.eot" />
+    <None Include="FlatLab\nanogallery\css\themes\clean\font\nano_icon_font.svg" />
+    <None Include="FlatLab\nanogallery\css\themes\clean\font\nano_icon_font.ttf" />
+    <None Include="FlatLab\nanogallery\css\themes\clean\font\nano_icon_font.woff" />
+    <None Include="FlatLab\nanogallery\css\themes\clean\Thumbs.db" />
     <None Include="FlatLab\toastr\build\toastr.js.map" />
     <None Include="FlatLab\videojsPlay\.DS_Store" />
     <None Include="FlatLab\videojsPlay\font\vjs.eot" />
@@ -2520,6 +2541,7 @@
     <Content Include="Views\DigitalContent\DigitalContentIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutMainForApp.cshtml" />
     <Content Include="Views\DigitalContent\CompanyIndex.cshtml" />
+    <Content Include="Views\DigitalContent\SchoolIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,13 +20,15 @@ namespace CEA_CR.PlatForm.Utils
                 return result;
             }
 
+            classRoomId = classRoomId.ToUpper();
+
             //#region 测试数据
             //result.Add(new CurrentCourseItem { classId = "354", className = "新雇员训练1671（本部）", courseId = "3", courseName = "各种机型设备理论", time = "2016-10-11 07:30" });
             //result.Add(new CurrentCourseItem { classId = "354", className = "新雇员训练1671（本部）", courseId = "33", courseName = "紧急医学事件处置训练理论", time = "2016-10-11 15:30" });
             //return result;
             //#endregion
 
-            string cacheKey = string.Format("course:{0}", classRoomId.ToUpper());
+            string cacheKey = string.Format("course:{0}", classRoomId);
             result = CacheHelper.CacheManager.Get<List<CurrentCourseItem>>(cacheKey);
             if (result == null || result.Count == 0)
             {
@@ -55,6 +57,7 @@ namespace CEA_CR.PlatForm.Utils
 
                 if (result != null && result.Count > 0)
                 {
+                    result = result.OrderByDescending(r => r.time).ThenBy(r => r.courseName).ToList();
                     CacheHelper.CacheManager.Set(cacheKey, result, 10);
                 }
             }
@@ -105,6 +108,7 @@ namespace CEA_CR.PlatForm.Utils
 
                 if (result != null && result.Count > 0)
                 {
+                    result = result.OrderByDescending(r => r.t_date).ThenByDescending(r => r.time).ThenBy(r => r.courseName).ToList();
                     CacheHelper.CacheManager.Set(cacheKey, result, 10);
                 }
             }
