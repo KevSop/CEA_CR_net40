@@ -15,6 +15,8 @@ namespace CEA_CR.PlatForm
     {
         public App()
         {
+            log4net.Config.XmlConfigurator.Configure(); 
+
             // 在异常由应用程序引发但未进行处理时发生。主要指的是UI线程。
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
             //  当某个异常未被捕获时出现。主要指的是非UI线程
@@ -26,17 +28,33 @@ namespace CEA_CR.PlatForm
             if (e.ExceptionObject is System.Exception)
             {
                 Exception ex = (System.Exception)e.ExceptionObject;
+
+                log4net.ILog log = log4net.LogManager.GetLogger("SMTPAppender");
+                log.Error(ex.Message, ex);
+
                 Framework.MessageBox mb = new Framework.MessageBox();
                 mb.Topmost = true;
                 mb.Title = "异常提示";
                 mb.Message = ex.Message;
                 mb.ShowDialog();
+
+                //重启程序，需要时加上重启的参数
+                System.Diagnostics.ProcessStartInfo cp = new System.Diagnostics.ProcessStartInfo();
+                cp.FileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                cp.Arguments = "";
+                cp.UseShellExecute = true;
+                System.Diagnostics.Process.Start(cp);
             }
         }
         void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             //可以记录日志并转向错误bug窗口友好提示用户
             e.Handled = true;
+
+
+            log4net.ILog log = log4net.LogManager.GetLogger("SMTPAppender");
+            log.Error(e.Exception.Message, e.Exception);
+
             Framework.MessageBox mb = new Framework.MessageBox();
             mb.Topmost = true;
             mb.Title = "异常提示";

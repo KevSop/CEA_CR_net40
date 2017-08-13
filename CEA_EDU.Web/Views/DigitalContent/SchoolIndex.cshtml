@@ -15,7 +15,7 @@
 
     <script src="~/FlatLab/nanogallery/jquery.transit.min.js?v=267" type="text/javascript"></script>
     <link href="~/FlatLab/nanogallery/css/nanogallery.css?v=267" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="~/FlatLab/nanogallery/jquery.nanogallery.js?v=267"></script> 
+	<script type="text/javascript" src="~/FlatLab/nanogallery/jquery.nanogallery.js?v=270"></script> 
 
  @* <script src="~/FlatLab/hivideo/hivideo.js" type="text/javascript" ></script>@*
     <script src="~/FlatLab/html5media.min.js"></script>
@@ -102,6 +102,10 @@
 
         SetTab("1");
 
+        $("div").on("mousedown", function () { return false; });
+        $("img").on("mousedown", function () { return false; });
+        $("img").on("dragstart", function () { return false; });
+
         //$("body").mousemove(function(){event.returnValue=false;});
     });
 
@@ -125,7 +129,6 @@
             if ($("#divSchoolInfo").html() != "") {
                 return;
             }
-            
             $("#divSchoolInfo").html('');
 
         } else {
@@ -134,11 +137,8 @@
             if ($("#divSchoolFeture").html() != "") {
                 return;
             }
-
             $("#divSchoolFeture").html('');
         }
-
-        
 
         $.ajax({
             url: "../DigitalContent/GetSchoolContent",
@@ -176,7 +176,6 @@
 
                 return;
             }
-
             $("#divSchoolPicture").html('');
 
         } else {
@@ -186,11 +185,8 @@
             if ($("#divSchoolVideo").html() != "") {
                 return;
             }
-
             $("#divSchoolVideo").html('');
         }
-
-
 
         $.ajax({
             url: "../DigitalContent/GetSchoolDigitalContent",
@@ -216,7 +212,6 @@
                             window.external.kitBrowser_PlayVideo($(this).attr('path'));
                         });
                     });
-
                 }
             },
             error: function (xhr, textStatus) {

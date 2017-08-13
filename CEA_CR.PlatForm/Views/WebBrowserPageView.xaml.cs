@@ -22,6 +22,7 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using Framework;
 using System.Configuration;
+using System.Runtime.ExceptionServices;
 
 namespace CEA_CR.PlatForm.Views
 {
@@ -32,7 +33,7 @@ namespace CEA_CR.PlatForm.Views
     [System.Runtime.InteropServices.ComVisibleAttribute(true)]
     public partial class WebBrowserPageView : Window
     {
-        WebKit.WebKitBrowser kitBrowser = new WebKit.WebKitBrowser();
+        WebKit.WebKitBrowser kitBrowser;
         System.Windows.Forms.Integration.WindowsFormsHost windowsFormsHost = new System.Windows.Forms.Integration.WindowsFormsHost();
 
         string CompnayIndexPage = ConfigurationManager.AppSettings["CompnayIndexPage"];
@@ -55,6 +56,7 @@ namespace CEA_CR.PlatForm.Views
                 lblTitle.Content = "校园介绍";
             }
 
+            kitBrowser = new WebKit.WebKitBrowser();
             kitBrowser.Navigate(serverIndexPage);
 
             windowsFormsHost.Child = kitBrowser;

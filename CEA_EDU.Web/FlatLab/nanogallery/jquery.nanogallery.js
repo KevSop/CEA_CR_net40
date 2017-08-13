@@ -1923,8 +1923,11 @@ function nanoGALLERY() {
 		jQuery(g_containerViewerContent).find('.contentAreaNext').on("click",function(e){ e.stopPropagation(); DisplayNextImage(); });
 		jQuery(g_containerViewerContent).find('.contentAreaPrevious').on("click",function(e){ e.stopPropagation(); DisplayPreviousImage(); });
 
-		
-		jQuery(g_containerViewerContent).on("click",function(e){ e.stopPropagation(); CloseInternalViewer(); });
+
+		jQuery(g_containerViewerContent).on("click", function (e) { e.stopPropagation(); CloseInternalViewer(); });
+
+        //∑¿÷π√∞≈›webkit±¿¿£
+		jQuery("img").on("mousedown", function () { return false; });
 
 	};
 	
