@@ -52,7 +52,7 @@ namespace CEA_CR.PlatForm
             e.Handled = true;
 
 
-            log4net.ILog log = log4net.LogManager.GetLogger("SMTPAppender");
+            log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
             log.Error(e.Exception.Message, e.Exception);
 
             Framework.MessageBox mb = new Framework.MessageBox();
