@@ -99,7 +99,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="UserControl\AutoCompleteEntry.cs" />
+    <Compile Include="UserControl\AutoCompleteTextBox.xaml.cs">
+      <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\BoolToVisibilityConverter.cs" />
+    <Compile Include="UserControl\AutoCompleteTextBoxNew.xaml.cs">
+      <DependentUpon>AutoCompleteTextBoxNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\AutoCompleteItem.cs" />
+    <Compile Include="UserControl\SearchBoxClassRoomNew.xaml.cs">
+      <DependentUpon>SearchBoxClassRoomNew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\NoticeButton.xaml.cs">
       <DependentUpon>NoticeButton.xaml</DependentUpon>
     </Compile>
@@ -323,6 +334,18 @@
     <Resource Include="UserControl\r-page-btn.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UserControl\AutoCompleteTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl\AutoCompleteTextBoxNew.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl\SearchBoxClassRoomNew.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControl\NoticeButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

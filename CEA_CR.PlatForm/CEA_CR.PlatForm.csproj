@@ -137,6 +137,9 @@
     <Compile Include="Views\CompanyPageView.xaml.cs">
       <DependentUpon>CompanyPageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SearchBoxClassRoomNew.xaml.cs">
+      <DependentUpon>SearchBoxClassRoomNew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WebBrowserPageView.xaml.cs">
       <DependentUpon>WebBrowserPageView.xaml</DependentUpon>
     </Compile>
@@ -166,6 +169,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CompanyPageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SearchBoxClassRoomNew.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

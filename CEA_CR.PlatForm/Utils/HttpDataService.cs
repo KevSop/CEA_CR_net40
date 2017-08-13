@@ -115,6 +115,40 @@ namespace CEA_CR.PlatForm.Utils
             return result;
         }
 
+        public List<RoomItem> GetSearchRoomList(string room)
+        {
+            List<RoomItem> result = new List<RoomItem>();
+
+            if (string.IsNullOrWhiteSpace(room))
+            {
+                return result;
+            }
+
+            #region 测试数据
+            result.Add(new RoomItem { roomId = "JS-030", roomName = "青浦3号楼300" });
+            result.Add(new RoomItem { roomId = "JS-031", roomName = "青浦3号楼301" });
+            result.Add(new RoomItem { roomId = "JS-032", roomName = "青浦3号楼302" });
+            result.Add(new RoomItem { roomId = "JS-033", roomName = "青浦3号楼303" });
+            result.Add(new RoomItem { roomId = "JS-034", roomName = "青浦3号楼304" });
+            result.Add(new RoomItem { roomId = "HQ-035", roomName = "虹桥3号楼305" });
+            result.Add(new RoomItem { roomId = "HQ-036", roomName = "虹桥3号楼306" });
+            result.Add(new RoomItem { roomId = "HQ-037", roomName = "虹桥3号楼307" });
+            result.Add(new RoomItem { roomId = "HQ-038", roomName = "虹桥3号楼308" });
+            result.Add(new RoomItem { roomId = "HQ-039", roomName = "虹桥3号楼309" });
+            return result;
+            #endregion
+
+
+            //string responseJson = HttpHelper.GetHttpResponse(string.Format(ConfigStatic.GetCurrentCourseUrl, ConfigStatic.userName, ConfigStatic.password, classRoomId));
+
+            //var response = JsonConvert.DeserializeObject<RoomItemResponse>(responseJson);
+            //if (response != null)
+            //{
+            //    result = response.roomList;
+            //}
+               
+            return result;
+        }
     }
 
     public class CurrentCourseResponse
@@ -146,6 +180,17 @@ namespace CEA_CR.PlatForm.Utils
         public string time { get; set; }
         public string place { get; set; }
         public string roomNo { get; set; }
+    }
+
+    public class RoomItemResponse
+    {
+        public List<RoomItem> roomList;
+    }
+
+    public class RoomItem
+    {
+        public string roomId { get; set; }
+        public string roomName { get; set; }
     }
 
 }

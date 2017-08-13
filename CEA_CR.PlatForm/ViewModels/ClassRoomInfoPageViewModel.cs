@@ -22,6 +22,8 @@ using System.ComponentModel.Composition;
 using System.Data;
 using System.Threading;
 using CEA_CR.PlatForm.Utils;
+using CEA_CR.PlatForm.Views;
+using Framework;
 
 namespace CEA_CR.PlatForm.ViewModels
 {
@@ -235,14 +237,15 @@ namespace CEA_CR.PlatForm.ViewModels
                 {
                     searchCommand = new DelegateCommand(delegate()
                     {
-                        Framework.SearchBoxClassRoom sb = new Framework.SearchBoxClassRoom();
+                        //Framework.SearchBoxClassRoom sb = new Framework.SearchBoxClassRoom();
+                        Framework.SearchBoxClassRoomNew sb = new Framework.SearchBoxClassRoomNew(getSearchResult);
                         sb.Topmost = true;
                         if (sb.ShowDialog().Value)
                         {
                             List<ClassRoomInfoVModel> searchResult = new List<ClassRoomInfoVModel>();
                             //此处过滤查询 Mark todo
                             HttpDataService service = new HttpDataService();
-                            List<CurrentCourseItem> currentCourse = service.GetCurrentCourse(sb.RoomSearch);
+                            List<CurrentCourseItem> currentCourse = service.GetCurrentCourse(sb.RoomSearchValue);
                             if (currentCourse != null)
                             {
                                 foreach (var item in currentCourse)
@@ -323,6 +326,20 @@ namespace CEA_CR.PlatForm.ViewModels
             }
         }
         #endregion
+
+        public List<AutoCompleteItem> getSearchResult(string searchKey)
+        {
+            List<AutoCompleteItem> result = new List<AutoCompleteItem>();
+            HttpDataService service = new HttpDataService();
+            List<RoomItem> roomList = service.GetSearchRoomList(searchKey);
+
+            if (roomList != null)
+            {
+                result = roomList.Where(r => r.roomName.Contains(searchKey)).Select(r => new AutoCompleteItem() { Text = r.roomName, Value = r.roomId }).ToList();
+            }
+
+            return result;
+        }
 
     }
 }

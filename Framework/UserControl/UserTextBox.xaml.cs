@@ -79,6 +79,14 @@ namespace Framework
             get { return txtbox.MaxLength; }
             set { txtbox.MaxLength = value; }
         }
+
+        /// <summary>
+        /// 控件是否有焦点
+        /// </summary>
+        public bool IsFocus
+        {
+            get { return txtbox.IsFocused; }
+        }
       
 	}
 }
