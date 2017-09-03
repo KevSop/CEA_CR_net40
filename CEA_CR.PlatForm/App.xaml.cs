@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using CEA_CR.PlatForm.Utils;
 
 namespace CEA_CR.PlatForm
 {
@@ -15,7 +16,10 @@ namespace CEA_CR.PlatForm
     {
         public App()
         {
-            log4net.Config.XmlConfigurator.Configure(); 
+            log4net.Config.XmlConfigurator.Configure();
+
+            //设置注册表IE版本（ForWebBrowser）
+            IEVersion.BrowserEmulationSet();
 
             // 在异常由应用程序引发但未进行处理时发生。主要指的是UI线程。
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);

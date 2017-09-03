@@ -285,7 +285,7 @@ font-family: 'nano_icon_font';
 .nanogallery_theme_default .nanoGalleryViewer {
 	display:block;
 	/*font-size:1em;*/
-	background-color: rgba(1, 1, 1, 0.85);
+	background: rgba(1, 1, 1, 0.8);
 	text-align: center;
 	position: fixed;
 	box-sizing: content-box;
@@ -301,6 +301,7 @@ font-family: 'nano_icon_font';
 	padding: 5px 5px 25px 25px;
 	position:absolute;
 	opacity:1;
+	filter:alpha(opacity=100);
 	transition: all 0.2s ease;
 	-webkit-transition: all 0.2s ease;
 	-moz-transition: all 0.2s ease;
@@ -338,6 +339,7 @@ font-family: 'nano_icon_font';
 }
 .nanogallery_theme_default .nanoGalleryViewer  .closeButtonFloating:hover {
 	opacity: 0.3;
+	filter:alpha(opacity=30);
 }
 
 .nanogallery_theme_default .nanoGalleryViewer .content {
@@ -351,7 +353,8 @@ font-family: 'nano_icon_font';
 	box-sizing: content-box;
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
-	-o-box-sizing: content-box;
+	-o-box-sizing: content-box; 
+	background-color: #000;
 }
 .nanogallery_theme_default .nanoGalleryViewer .content img{
 	/* never define a margin here */
@@ -378,10 +381,9 @@ font-family: 'nano_icon_font';
 	width:20px;
 	padding:50px 25px 50px 0px;
 	margin-top:-60px;
-
 	cursor:pointer;
-
 	opacity:1;
+	filter:alpha(opacity=100);
 	transition: all 0.2s ease;
 	-webkit-transition: all 0.2s ease;
 	-moz-transition: all 0.2s ease;
@@ -407,9 +409,11 @@ font-family: 'nano_icon_font';
 	font-variant: normal;
 	text-transform: none;
 	opacity:1;
+	filter:alpha(opacity=100);
 }
 .nanogallery_theme_default .nanoGalleryViewer .content .contentAreaPrevious:hover {
 	opacity: 0.3;
+	filter:alpha(opacity=30);
 }
 
 .nanogallery_theme_default .nanoGalleryViewer .content .contentAreaNext {
@@ -421,10 +425,9 @@ font-family: 'nano_icon_font';
 	padding:50px 15px 50px 25px;
 	margin-top:-60px;
 	right:0px;
-
 	cursor:pointer;
-	
 	opacity:1;
+	filter:alpha(opacity=100);
 	transition: all 0.2s ease;
 	-webkit-transition: all 0.2s ease;
 	-moz-transition: all 0.2s ease;
@@ -450,9 +453,11 @@ font-family: 'nano_icon_font';
 	font-variant: normal;
 	text-transform: none;
 	opacity:1;
+	filter:alpha(opacity=100);
 }
 .nanogallery_theme_default .nanoGalleryViewer .content .contentAreaNext:hover {
 	opacity: 0.3;
+	filter:alpha(opacity=30);
 }
 
 
@@ -502,6 +507,7 @@ font-family: 'nano_icon_font';
 	font-variant: normal;
 	text-transform: none;
 	opacity: 1;
+	filter:alpha(opacity=100);
 	transition: all 0.2s ease;
 	-webkit-transition: all 0.2s ease;
 	-moz-transition: all 0.2s ease;
@@ -509,6 +515,7 @@ font-family: 'nano_icon_font';
 }
 .nanogallery_theme_default .nanoGalleryViewer .toolbar .previousButton:hover:after{
 	opacity: 0.3;
+	filter:alpha(opacity=30);
 }
 
 .nanogallery_theme_default .nanoGalleryViewer .toolbar .nextButton{
@@ -539,6 +546,7 @@ font-family: 'nano_icon_font';
 	font-variant: normal;
 	text-transform: none;
 	opacity: 1;
+	filter:alpha(opacity=100);
 	transition: all 0.2s ease;
 	-webkit-transition: all 0.2s ease;
 	-moz-transition: all 0.2s ease;
@@ -546,6 +554,7 @@ font-family: 'nano_icon_font';
 }
 .nanogallery_theme_default .nanoGalleryViewer .toolbar .nextButton:hover:after{
 	opacity: 0.3;
+	filter:alpha(opacity=30);
 }
 
 .nanogallery_theme_default .nanoGalleryViewer .toolbar .closeButton{
@@ -576,6 +585,7 @@ font-family: 'nano_icon_font';
 	font-variant: normal;
 	text-transform: none;
 	opacity: 1;
+	filter:alpha(opacity=100);
 	transition: all 0.2s ease;
 	-webkit-transition: all 0.2s ease;
 	-moz-transition: all 0.2s ease;
@@ -583,6 +593,7 @@ font-family: 'nano_icon_font';
 }
 .nanogallery_theme_default .nanoGalleryViewer .toolbar .closeButton:hover:after{
 	opacity: 0.3;
+	filter:alpha(opacity=30);
 }
 
 .nanogallery_theme_default .nanoGalleryViewer .toolbar .label{

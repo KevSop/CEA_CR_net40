@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using Framework;
 using System.Configuration;
 using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices;
 
 namespace CEA_CR.PlatForm.Views
 {
@@ -30,10 +31,11 @@ namespace CEA_CR.PlatForm.Views
     /// WebBrowserPageView.xaml 的交互逻辑
     /// </summary>
     [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-    [System.Runtime.InteropServices.ComVisibleAttribute(true)]
+    [ComVisible(true)]
     public partial class WebBrowserPageView : Window
     {
         WebKit.WebKitBrowser kitBrowser;
+        System.Windows.Forms.WebBrowser webBrowser;
         System.Windows.Forms.Integration.WindowsFormsHost windowsFormsHost = new System.Windows.Forms.Integration.WindowsFormsHost();
 
         string CompnayIndexPage = ConfigurationManager.AppSettings["CompnayIndexPage"];
@@ -41,7 +43,7 @@ namespace CEA_CR.PlatForm.Views
 
         string serverIndexPage = "";
 
-        public WebBrowserPageView(int type)
+        public WebBrowserPageView(int type, int webBrowserType = 0)
         {
             InitializeComponent();
 
@@ -56,13 +58,27 @@ namespace CEA_CR.PlatForm.Views
                 lblTitle.Content = "校园介绍";
             }
 
-            kitBrowser = new WebKit.WebKitBrowser();
-            kitBrowser.Navigate(serverIndexPage);
+            //默认WebBrowser
+            if (webBrowserType == 0)
+            {
+                webBrowser = new System.Windows.Forms.WebBrowser();
+                webBrowser.ObjectForScripting = new WebBrowserCallbackClass();
+                webBrowser.ScriptErrorsSuppressed = true;
+                webBrowser.Navigate(serverIndexPage);
 
-            windowsFormsHost.Child = kitBrowser;
-            grdBrowserHost.Children.Add(windowsFormsHost);
+                windowsFormsHost.Child = webBrowser;
+                grdBrowserHost.Children.Add(windowsFormsHost);
 
-            kitBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(kitBrowser_DocumentCompleted);  
+            }
+            else
+            {
+                kitBrowser = new WebKit.WebKitBrowser();
+                kitBrowser.Navigate(serverIndexPage);
+                windowsFormsHost.Child = kitBrowser;
+                grdBrowserHost.Children.Add(windowsFormsHost);
+
+                kitBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(kitBrowser_DocumentCompleted);  
+            }
 
             if (System.Configuration.ConfigurationManager.AppSettings["IsDev"] == "true")
             {
@@ -75,16 +91,42 @@ namespace CEA_CR.PlatForm.Views
             kitBrowser.GetScriptManager.ScriptObject = this;
         }
 
-
-        public void kitBrowser_PlayVideo(string path)
+        public void WebBrowserPlayVideo(string path, string smallImage)
         {
             //var dom = kitBrowser.Document;
 
-            MediaElementPlayer player = new MediaElementPlayer(path);
+            MediaElementPlayer player = new MediaElementPlayer(path, smallImage);
             player.Topmost = true;
             player.Show();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (webBrowser != null)
+            {
+                webBrowser.Dispose();
+            }
+            if (kitBrowser != null)
+            {
+                kitBrowser.Dispose();
+            }
+
+            GC.Collect();
+            this.Close();
+        }
         
+    }
+
+    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+    [ComVisible(true)]
+    public class WebBrowserCallbackClass
+    {
+        public void WebBrowserPlayVideo(string path, string smallImage)
+        {
+            MediaElementPlayer player = new MediaElementPlayer(path, smallImage);
+            player.Topmost = true;
+            player.Show();
+        }
     }
 
     public class WebBrowserPageViewModel

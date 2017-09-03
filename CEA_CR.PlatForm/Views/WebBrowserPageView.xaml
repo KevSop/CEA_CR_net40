@@ -32,7 +32,7 @@
             </Grid.RowDefinitions>
             <Image Width="1024" Height="60" Source="/framework;component/usercontrol/top_bg_nologo.png"  Grid.ColumnSpan="2"/>
             <StackPanel Margin="0,5,0,5" Height="50" Width="165" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
-                <Button Content="退出" Style="{StaticResource ResourceKey=MainButtonstyle}"  Margin="5,0,10,0" Width="150" Height="50" Padding="5"  Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=w}"/>
+                <Button Content="退出" Style="{StaticResource ResourceKey=MainButtonstyle}"  Margin="5,0,10,0" Width="150" Height="50" Padding="5" Click="Button_Click" />
             </StackPanel>
             <Label Name="lblTitle" Content="公司介绍" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="320" Height="40" FontSize="25" Foreground="White" />
             <DockPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Height="710" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" Width="1024">
