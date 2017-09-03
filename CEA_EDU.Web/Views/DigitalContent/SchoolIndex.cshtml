@@ -5,8 +5,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
+    
+    <link href="~/FlatLab/css/ie-css3.htc?v=267" rel="stylesheet" />
     <link href="~/FlatLab/css/style.min.css?v=267" rel="stylesheet" />
     <link href="~/FlatLab/hivideo/assets/hivideo.css" rel="stylesheet" />
     <script src="~/FlatLab/js/jquery-1.8.3.min.js?v=267" type="text/javascript"></script>
@@ -76,11 +79,11 @@
 <script id="VideoTmpl" type="text/x-jquery-tmpl">
      <ul id="ulDigitalContent">
     {{each(i,item) DigitalContentList}}
-        <li class="videoContainer" style="width:33%;height:300px;cursor:pointer;">
+        <li class="videoContainer" style="width:33%;height:300px;cursor:pointer;" path="${item.Path}" smallImage="${item.SmallImage}">
             <div style="width:100%;height:100%;text-align:center;">
-                <img src="../FlatLab/img/company.jpg" width="120px" height="110px" />
+                <img src="${item.SmallImage}" width="240px" height="200px" />
             <div>
-            <div style="text-align:center;" path="${item.Path}"><p>${item.Name}</p><div>
+            <div style="text-align:center;"><p>${item.Name}</p><div>
         </li>
     {{/each}}
     </ul>
@@ -95,18 +98,21 @@
                 $(this).addClass("current");
                 var tabIndex = $(this).attr('tabIndex');
                 $(".hotel_tabs_box").addClass("disabled");
-                setTimeout(SetTab(tabIndex), 1200);
-                //SetTab($(this).attr('tabIndex'));
+                
+                //setTimeout(SetTab(tabIndex), 1200);
+                SetTab($(this).attr('tabIndex'));
             });
         });
 
         SetTab("1");
 
-        $("div").on("mousedown", function () { return false; });
-        $("img").on("mousedown", function () { return false; });
-        $("img").on("dragstart", function () { return false; });
+        document.oncontextmenu = function () { return false; } 
 
-        //$("body").mousemove(function(){event.returnValue=false;});
+        //页面鼠标事件，防止webkitbroswer崩溃
+        $("body").on("mousedown", function () { return false; });
+        $("input").bind("mousedown", function () { event.stopPropagation(); });
+        $("select").bind("mousedown", function () { event.stopPropagation(); });
+        $("textarea").bind("mousedown", function () { event.stopPropagation(); });
     });
 
     function SetTab(tabIndex) {
@@ -126,17 +132,17 @@
         if (type == 1) {
             $("#divSchoolInfo").show();
             $("#divSchoolFeture").hide();
-            if ($("#divSchoolInfo").html() != "") {
-                return;
-            }
+//            if ($("#divSchoolInfo").html() != "") {
+//                return;
+//            }
             $("#divSchoolInfo").html('');
 
         } else {
             $("#divSchoolFeture").show();
             $("#divSchoolInfo").hide();
-            if ($("#divSchoolFeture").html() != "") {
-                return;
-            }
+//            if ($("#divSchoolFeture").html() != "") {
+//                return;
+//            }
             $("#divSchoolFeture").html('');
         }
 
@@ -166,25 +172,25 @@
         if (type == 1) {
             $("#divSchoolPicture").show();
             $("#divSchoolVideo").hide();
-            if ($("#divSchoolPicture").html() != "") {
-                jQuery("#divSchoolPicture").nanoGallery({ thumbnailWidth: 260, thumbnailHeight: 200,
-                    displayCaption: true,
-                    displayBreadcrumb: true,
-                    thumbnailHoverEffect: [{ 'name': 'descriptionSlideUp', 'duration': 300 }, { 'name': 'borderLighter'}],
-                    colorScheme: 'light'
-                });
+//            if ($("#divSchoolPicture").html() != "") {
+//                jQuery("#divSchoolPicture").nanoGallery({ thumbnailWidth: 260, thumbnailHeight: 200,
+//                    displayCaption: true,
+//                    displayBreadcrumb: true,
+//                    thumbnailHoverEffect: [{ 'name': 'descriptionSlideUp', 'duration': 300 }, { 'name': 'borderLighter'}],
+//                    colorScheme: 'light'
+//                });
 
-                return;
-            }
+//                return;
+//            }
             $("#divSchoolPicture").html('');
 
         } else {
             $("#divSchoolVideo").show();
             $("#divSchoolPicture").hide();
 
-            if ($("#divSchoolVideo").html() != "") {
-                return;
-            }
+//            if ($("#divSchoolVideo").html() != "") {
+//                return;
+//            }
             $("#divSchoolVideo").html('');
         }
 
@@ -209,7 +215,7 @@
                     $("#VideoTmpl").tmpl({ DigitalContentList: data }).appendTo($('#divSchoolVideo').html(''));
                     $(".videoContainer").each(function () {
                         $(this).click(function () {
-                            window.external.kitBrowser_PlayVideo($(this).attr('path'));
+                            window.external.WebBrowserPlayVideo($(this).attr('path'), $(this).attr('smallImage'));
                         });
                     });
                 }

@@ -90,6 +90,7 @@
     <Compile Include="Serialize.cs" />
     <Compile Include="Validate\Validate.cs" />
     <Compile Include="VerifyCode.cs" />
+    <Compile Include="VideoThumbnail\VideoThumbnailUtility.cs" />
     <Compile Include="Web\AjaxResult.cs" />
     <Compile Include="Web\Pagination.cs" />
     <Compile Include="Web\TreeGrid\TreeGrid.cs" />

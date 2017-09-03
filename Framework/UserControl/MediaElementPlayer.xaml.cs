@@ -19,15 +19,24 @@ namespace Framework
     /// </summary>
     public partial class MediaElementPlayer : Window
     {
-        public MediaElementPlayer(string source)
+        private string source;
+        private string smallImage;
+
+        public MediaElementPlayer(string source, string smallImage)
         {
             InitializeComponent();
 
-            source = @"D:\东航数字资源文件\公司介绍\VID_20151011_165440.mp4";
-            source = "http://dl124.80s.im:920/1706/[%E9%99%88%E5%A5%95%E8%BF%85]%E5%96%9C%E6%AC%A2%E4%B8%80%E4%B8%AA%E4%BA%BA/[%E9%99%88%E5%A5%95%E8%BF%85]%E5%96%9C%E6%AC%A2%E4%B8%80%E4%B8%AA%E4%BA%BA_hd.mp4";
+            this.source = source;
+            this.smallImage = smallImage;
 
-            mediaElement.Source = new Uri(source);
-            playBtn.IsEnabled = true;
+            //mediaElement.Source = new Uri(source);
+            //playBtn.IsEnabled = true;
+            //mediaElement.Play();
+            //mediaElement.ScrubbingEnabled = true;
+            //mediaElement.Pause();
+            //mediaElement.Position = TimeSpan.FromTicks(1);
+
+            mediaElement.Source = new Uri(smallImage);
             mediaElement.Play();
             mediaElement.ScrubbingEnabled = true;
             mediaElement.Pause();
@@ -36,6 +45,8 @@ namespace Framework
 
         private void PlayerPause()
         {
+            mediaElement.Source = new Uri(source);
+
             //SetPlayer(true);
             if (playBtn.Content.ToString() == "播放")
             {

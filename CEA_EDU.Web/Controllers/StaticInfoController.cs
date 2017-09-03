@@ -58,6 +58,7 @@ namespace CEA_EDU.Web.Controllers
             HttpContext.Response.Write(jss.Serialize(model));
         }
 
+        [ValidateInput(false)]
         public string SaveCompany(string jsonString, string action)
         {
             try
@@ -123,6 +124,7 @@ namespace CEA_EDU.Web.Controllers
             HttpContext.Response.Write(jss.Serialize(model));
         }
 
+        [ValidateInput(false)]
         public string SaveSchool(string jsonString, string action)
         {
             try

@@ -17,6 +17,7 @@ using CEA_EDU.Web.Models;
 using CEA_EDU.Domain.Manager;
 using CEA_EDU.Domain.Entity;
 using CEA_EDU.Web.Utils;
+using CEA_EDU.Common.VideoThumbnail;
 
 namespace CEA_EDU.Web.Controllers
 {
@@ -199,6 +200,27 @@ namespace CEA_EDU.Web.Controllers
                     if (type == digitalContentEntity.Type.ToString())
                     {
                         list.Add(digitalContentEntity);
+
+                        if (type == "2")
+                        {
+                            //视频缩略图路径
+                            string smallImagePath = Path.Combine(ArticlePictureRootPath, "公司和校园视频缩略图\\" +
+                                (category == "公司介绍" ? "company_" : "school_") + Path.GetFileNameWithoutExtension(fileName) + ".jpg");
+
+                            //获取视频缩略图
+                            smallImagePath = VideoThumbnailUtility.CatchImg(fileName, smallImagePath, 560, 500);
+
+                            if (string.IsNullOrWhiteSpace(smallImagePath))
+                            {
+                                digitalContentEntity.SmallImage = "../FlatLab/img/company.jpg";//无法生成时显示的图片
+                            }
+                            else
+                            {
+                                //设置缩略图
+                                digitalContentEntity.SmallImage = "http://" + WebHost + "/CEA_EDU/DigitalContent/GetArticlePictureByPath?path=" +
+                                    Server.UrlEncode(smallImagePath.Replace(Path.Combine(ArticlePictureRootPath), ""));
+                            }
+                        }
                     }
                 }
             }
@@ -303,7 +325,6 @@ namespace CEA_EDU.Web.Controllers
                     Response.AddHeader("Content-Disposition", "attachment;filename=" + fileName);
                 }
 
-
                 string cacheKey = path.Replace(":", "").Replace("\\", "_");
                 byte[] fileBytes = CacheUtility.GetCache(cacheKey) as byte[];
 
@@ -317,7 +338,13 @@ namespace CEA_EDU.Web.Controllers
                     int n = fs.Read(buffer, 0, buffer.Length);
                     while (n > 0)
                     {
-                        Response.OutputStream.Write(buffer, 0, n);
+                        if (Response.IsClientConnected)
+                        {
+                            Response.OutputStream.Write(buffer, 0, n);
+                            Response.Flush();
+                            Response.Clear();
+                        }
+
                         ms.Write(buffer, 0, n);
 
                         n = fs.Read(buffer, 0, buffer.Length);
@@ -345,7 +372,16 @@ namespace CEA_EDU.Web.Controllers
                         }
                         else
                         {
-                            Response.OutputStream.Write(fileBytes, i * bufferLength, bufferLength);
+                            if (Response.IsClientConnected)
+                            {
+                                Response.OutputStream.Write(fileBytes, i * bufferLength, bufferLength);
+                                Response.Flush();
+                                Response.Clear();
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
                     }
                 }
@@ -400,7 +436,13 @@ namespace CEA_EDU.Web.Controllers
                     int n = fs.Read(buffer, 0, buffer.Length);
                     while (n > 0)
                     {
-                        Response.OutputStream.Write(buffer, 0, n);
+                        if (Response.IsClientConnected)
+                        {
+                            Response.OutputStream.Write(buffer, 0, n);
+                            Response.Flush();
+                            Response.Clear();
+                        }
+
                         ms.Write(buffer, 0, n);
 
                         n = fs.Read(buffer, 0, buffer.Length);
@@ -428,7 +470,16 @@ namespace CEA_EDU.Web.Controllers
                         }
                         else
                         {
-                            Response.OutputStream.Write(fileBytes, i * bufferLength, bufferLength);
+                            if (Response.IsClientConnected)
+                            {
+                                Response.OutputStream.Write(fileBytes, i * bufferLength, bufferLength);
+                                Response.Flush();
+                                Response.Clear();
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
                     }
                 }

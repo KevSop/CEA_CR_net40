@@ -132,6 +132,7 @@
     <Compile Include="Utils\ConfigStatic.cs" />
     <Compile Include="Utils\HttpDataService.cs" />
     <Compile Include="Utils\HttpHelper.cs" />
+    <Compile Include="Utils\IEVersion.cs" />
     <Compile Include="ViewModels\StudentInfoPageViewModel.cs" />
     <Compile Include="ViewModels\TeacherInfoPageViewModel.cs" />
     <Compile Include="ViewModels\ClassRoomInfoPageViewModel.cs" />

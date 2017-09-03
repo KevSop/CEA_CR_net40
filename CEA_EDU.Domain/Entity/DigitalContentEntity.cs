@@ -26,6 +26,11 @@ namespace CEA_EDU.Domain.Entity
         /// ×ÊÔ´Â·¾¶
         /// </summary>
         public string Path { get; set; }
+
+        /// <summary>
+        /// ËõÂÔÍ¼
+        /// </summary>
+        public string SmallImage { get; set; }
        
     }
 }

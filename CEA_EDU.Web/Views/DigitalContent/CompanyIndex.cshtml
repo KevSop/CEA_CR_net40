@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
     <link href="~/FlatLab/css/style.min.css?v=267" rel="stylesheet" />
@@ -25,7 +26,7 @@
     <style type="text/css">
         html{background-color:#FFF; margin:0; padding:0; overflow-x:hidden;}
 	    body{background-color:#FFF; margin:0; padding:0; font-size:14px;line-height:1.5;font-family:Tahoma,Simsun,sans-serif;color:#333;
-	         -moz-user-select: none; /*火狐*/  -webkit-user-select: none; /*webkit浏览器*/ -ms-user-select: none; /*IE10*/ user-select: none;}
+            -moz-user-select: none; /*火狐*/  -webkit-user-select: none; /*webkit浏览器*/ -ms-user-select: none; /*IE10*/ user-select: none;}
 	    #ulDigitalContent li{float:left;}
 	    #divCompanyContent { font-size:18px;line-height:1.5;font-family:Tahoma,Simsun,sans-serif; }
 	    #divCompanyContent p { font-size:18px;line-height:1.5;font-family:Tahoma,Simsun,sans-serif; }
@@ -76,11 +77,11 @@
 <script id="VideoTmpl" type="text/x-jquery-tmpl">
      <ul id="ulDigitalContent">
     {{each(i,item) DigitalContentList}}
-        <li class="videoContainer" style="width:33%;height:300px;cursor:pointer;">
+        <li class="videoContainer" style="width:33%;height:300px;cursor:pointer;" path="${item.Path}" smallImage="${item.SmallImage}">
             <div style="width:100%;height:100%;text-align:center;">
-                <img src="../FlatLab/img/company.jpg" width="120px" height="110px" />
+                <img src="${item.SmallImage}" width="240px" height="200px" />
             <div>
-            <div style="text-align:center;" path="${item.Path}"><p>${item.Name}</p><div>
+            <div style="text-align:center;"><p>${item.Name}</p><div>
         </li>
     {{/each}}
     </ul>
@@ -95,18 +96,29 @@
                 $(this).addClass("current");
                 var tabIndex = $(this).attr('tabIndex');
                 $(".hotel_tabs_box").addClass("disabled");
-                setTimeout(SetTab(tabIndex), 1200);
-                //SetTab($(this).attr('tabIndex'));
+
+                //setTimeout(SetTab(tabIndex), 1200);
+                SetTab($(this).attr('tabIndex'));
             });
         });
 
         SetTab("1");
 
-        $("div").on("mousedown", function () { return false; });
-        $("img").on("mousedown", function () { return false; });
-        $("img").on("dragstart", function () { return false; });
+        document.oncontextmenu = function () {return false;} 
 
-        //$("body").mousemove(function(){event.returnValue=false;});
+        //页面鼠标事件，防止webkitbroswer崩溃
+        $("body").on("mousedown", function () { return false; });
+        $("body").on("mousemove", function () { event.returnValue = false; });
+        $("input").bind("mousedown", function () { event.stopPropagation(); });
+        $("select").bind("mousedown", function () { event.stopPropagation(); });
+        $("textarea").bind("mousedown", function () { event.stopPropagation(); });
+        
+
+       // $("div").on("mousedown", function () { return false; });
+       // $("img").on("mousedown", function () { return false; });
+       // $("img").on("dragstart", function () { return false; });
+       // $("body").on("mousemove", function () { event.returnValue = false; return false; });
+       // $("body").mousemove(function(){event.returnValue=false;});
     });
 
     function SetTab(tabIndex) {
@@ -126,17 +138,17 @@
         if (type == 1) {
             $("#divCompanyInfo").show();
             $("#divCompanyFeture").hide();
-            if ($("#divCompanyInfo").html() != "") {
-                return;
-            }
+//            if ($("#divCompanyInfo").html() != "") {
+//                return;
+//            }
             $("#divCompanyInfo").html('');
 
         } else {
             $("#divCompanyFeture").show();
             $("#divCompanyInfo").hide();
-            if ($("#divCompanyFeture").html() != "") {
-                return;
-            }
+//            if ($("#divCompanyFeture").html() != "") {
+//                return;
+//            }
             $("#divCompanyFeture").html('');
         }
 
@@ -166,25 +178,25 @@
         if (type == 1) {
             $("#divCompanyPicture").show();
             $("#divCompanyVideo").hide();
-            if ($("#divCompanyPicture").html() != "") {
-                jQuery("#divCompanyPicture").nanoGallery({ thumbnailWidth: 260, thumbnailHeight: 200,
-                    displayCaption: true,
-                    displayBreadcrumb: true,
-                    thumbnailHoverEffect: [{ 'name': 'descriptionSlideUp', 'duration': 300 }, { 'name': 'borderLighter'}],
-                    colorScheme: 'light'
-                });
+//            if ($("#divCompanyPicture").html() != "") {
+//                jQuery("#divCompanyPicture").nanoGallery({ thumbnailWidth: 260, thumbnailHeight: 200,
+//                    displayCaption: true,
+//                    displayBreadcrumb: true,
+//                    thumbnailHoverEffect: [{ 'name': 'descriptionSlideUp', 'duration': 300 }, { 'name': 'borderLighter'}],
+//                    colorScheme: 'light'
+//                });
 
-                return;
-            }
+//                return;
+//            }
             $("#divCompanyPicture").html('');
 
         } else {
             $("#divCompanyVideo").show();
             $("#divCompanyPicture").hide();
 
-            if ($("#divCompanyVideo").html() != "") {
-                return;
-            }
+//            if ($("#divCompanyVideo").html() != "") {
+//                return;
+//            }
             $("#divCompanyVideo").html('');
         }
 
@@ -201,7 +213,7 @@
                     jQuery("#divCompanyPicture").nanoGallery({ thumbnailWidth: 260, thumbnailHeight: 200,
                         displayCaption: true,
                         displayBreadcrumb: true,
-                        thumbnailHoverEffect: [{ 'name': 'descriptionSlideUp', 'duration': 300 }, { 'name': 'borderLighter'}],				
+                        thumbnailHoverEffect: [{ 'name': 'descriptionSlideUp', 'duration': 300 }, { 'name': 'borderLighter'}],
                         colorScheme: 'light'
                     });
 
@@ -209,7 +221,7 @@
                     $("#VideoTmpl").tmpl({ DigitalContentList: data }).appendTo($('#divCompanyVideo').html(''));
                     $(".videoContainer").each(function () {
                         $(this).click(function () {
-                            window.external.kitBrowser_PlayVideo($(this).attr('path'));
+                            window.external.WebBrowserPlayVideo($(this).attr('path'), $(this).attr('smallImage'));
                         });
                     });
                 }
