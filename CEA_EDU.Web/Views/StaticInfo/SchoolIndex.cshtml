@@ -3,6 +3,12 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
+<!--ueditor需要引用的css，js库-->
+<link href="~/FlatLab/ueres/themes/default/_css/ueditor.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/FlatLab/ueres/ueditor.config.js"></script>
+<script type="text/javascript" src="~/FlatLab/ueres/editor_api.js"></script>
+<script type="text/javascript" src="~/FlatLab/ueres/zh-cn.js"></script>
+
 <div>
     <div>
         <div class="col-*-12">
@@ -13,8 +19,8 @@
 
             <table id="mytab" class="table table-hover"></table>
 
-            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true" style="margin-left:200px">
+                <div class="modal-dialog" style="width:850px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -35,7 +41,7 @@
                                 地址：<input type="text" class="form-control" id="Address" placeholder="请输入地址" />
                             </div>
                             <div class="form-group">
-                                描述信息：<textarea rows="8" class="form-control" id="Description"></textarea>
+                                描述信息：<script id="editorDescription" type="text/plain" style="width: 97%; height: 320px;"></script>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -50,6 +56,8 @@
 </div>
 
 <script type="text/javascript">
+    var ue = UE.getEditor('editorDescription');
+
     $(function () {
         $("div.icon-reorder").click(function () {
             $('#mytab').bootstrapTable('resetView', {
@@ -146,7 +154,11 @@
                 $("#Code").val(row.Code);
                 $("#Name").val(row.Name);
                 $("#Address").val(row.Address);
-                $("#Description").val(row.Description);
+
+                ue.ready(function () {
+                    ue.setContent(row.Description);
+                });
+
                 $("#editRowIndex").val(this.data.indexOf(row));
                 nodeObj.ID = row.ID;
                 nodeObj.Code = row.Code;
@@ -182,12 +194,10 @@
         $('#Address').change(function () {
             nodeObj.Address = this.value;
         });
-        $('#Description').change(function () {
-            nodeObj.Description = this.value;
-        });
+
         //保存事件
         $("#SaveChanges").click(function () {
-
+            nodeObj.Description = $.trim(ue.getContent());
             var param = {};
             param.jsonString = JSON.stringify(nodeObj);
             param.action = $("#editRowIndex").val() == "" ? "add" : "update";
@@ -212,7 +222,7 @@
                                     Code: $("#Code").val(),
                                     Name: $("#Name").val(),
                                     Address: $("#Address").val(),
-                                    Description: $("#Description").val()
+                                    Description: $.trim(ue.getContent())
                                 }
                             });
                         }
@@ -242,6 +252,11 @@
             $(this).val("");
         });
         $("#Type").val("-");
+        
+        ue.ready(function () {
+            ue.setContent('');
+        });
+
         nodeObj.ID = "0";
         nodeObj.Code = "";
         nodeObj.Name = "";
