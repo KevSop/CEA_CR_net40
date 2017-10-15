@@ -1882,10 +1882,8 @@
     <Content Include="FlatLab\css\bootstrap.css" />
     <Content Include="FlatLab\css\bootstrap.min.css" />
     <Content Include="FlatLab\css\gallery.css" />
-    <Content Include="FlatLab\css\ie-css3.htc" />
     <Content Include="FlatLab\css\image-crop.css" />
     <Content Include="FlatLab\css\nanogallery.css" />
-    <Content Include="FlatLab\css\nanogallery_clean.css" />
     <Content Include="FlatLab\css\navbar-fixed-top.css" />
     <Content Include="FlatLab\css\owl.carousel.css" />
     <Content Include="FlatLab\css\style-responsive.css" />
@@ -1983,8 +1981,6 @@
     <Content Include="FlatLab\js\bootstrap.js" />
     <Content Include="FlatLab\js\bootstrap.min.js" />
     <Content Include="FlatLab\js\common-scripts.js" />
-    <Content Include="FlatLab\js\jquery.nanogallery.js" />
-    <Content Include="FlatLab\js\jquery.nanogallery.min.js" />
     <Content Include="FlatLab\js\jquery.tmpl.min.js" />
     <Content Include="FlatLab\js\count.js" />
     <Content Include="FlatLab\js\dynamic-table.js" />

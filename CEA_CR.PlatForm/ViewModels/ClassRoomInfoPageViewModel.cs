@@ -24,6 +24,7 @@ using System.Threading;
 using CEA_CR.PlatForm.Utils;
 using CEA_CR.PlatForm.Views;
 using Framework;
+using CEA_EDU.Domain.Manager;
 
 namespace CEA_CR.PlatForm.ViewModels
 {
@@ -330,12 +331,22 @@ namespace CEA_CR.PlatForm.ViewModels
         public List<AutoCompleteItem> getSearchResult(string searchKey)
         {
             List<AutoCompleteItem> result = new List<AutoCompleteItem>();
-            HttpDataService service = new HttpDataService();
-            List<RoomItem> roomList = service.GetSearchRoomList(searchKey);
+
+            //HttpDataService service = new HttpDataService();
+            //List<RoomItem> roomList = service.GetSearchRoomList(searchKey);
+
+            //if (roomList != null)
+            //{
+            //    result = roomList.Where(r => r.roomName.Contains(searchKey)).Select(r => new AutoCompleteItem() { Text = r.roomName, Value = r.roomId }).ToList();
+            //}
+
+            ClassRoomInfoManager classRoomInfoManager = new ClassRoomInfoManager();
+
+            var roomList = classRoomInfoManager.GetClassRoomInfoByName(searchKey);
 
             if (roomList != null)
             {
-                result = roomList.Where(r => r.roomName.Contains(searchKey)).Select(r => new AutoCompleteItem() { Text = r.roomName, Value = r.roomId }).ToList();
+                result = roomList.Select(r => new AutoCompleteItem() { Text = r.Name, Value = r.Code }).ToList();
             }
 
             return result;

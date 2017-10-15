@@ -17,6 +17,7 @@ using TouchScreenKeyboard.Controls;
 using CEA_CR.PlatForm.Utils;
 using Framework;
 using System.Timers;
+using CEA_EDU.Domain.Manager;
 
 namespace CEA_CR.PlatForm.Views
 {
@@ -133,14 +134,25 @@ namespace CEA_CR.PlatForm.Views
 
         public List<RoomItem> getSearchResult(string searchKey)
         {
-            HttpDataService service = new HttpDataService();
-            List<RoomItem> roomList = service.GetSearchRoomList(searchKey);
+            //HttpDataService service = new HttpDataService();
+            //List<RoomItem> roomList = service.GetSearchRoomList(searchKey);
+
+            //if (roomList != null)
+            //{
+            //    roomList = roomList.Where(r => r.roomName.Contains(searchKey)).ToList();
+            //}
+
+            List<RoomItem> result = new List<RoomItem>();
+
+            ClassRoomInfoManager classRoomInfoManager = new ClassRoomInfoManager();
+
+            var roomList = classRoomInfoManager.GetClassRoomInfoByName(searchKey);
 
             if(roomList != null){
-                roomList = roomList.Where(r => r.roomName.Contains(searchKey)).ToList();
+                roomList.ForEach(r=> result.Add(new RoomItem(){ roomId = r.Code, roomName = r.Name}));
             }
 
-            return roomList;
+            return result;
         }
 
         private void SearchTextBox_OnTimedEvent(object source, System.Timers.ElapsedEventArgs e)

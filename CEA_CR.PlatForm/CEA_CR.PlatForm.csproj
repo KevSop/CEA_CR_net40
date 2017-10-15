@@ -26,7 +26,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -125,6 +125,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainWindowOld.xaml.cs">
+      <DependentUpon>MainWindowOld.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\StudentInfoPageModel.cs" />
     <Compile Include="Models\TeacherInfoPageModel.cs" />
     <Compile Include="Models\ClassRoomInfoPageModel.cs" />
@@ -157,6 +160,10 @@
     <Compile Include="Views\ClassRoomInfoPageView.xaml.cs">
       <DependentUpon>ClassRoomInfoPageView.xaml</DependentUpon>
     </Compile>
+    <Page Include="MainWindowOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
