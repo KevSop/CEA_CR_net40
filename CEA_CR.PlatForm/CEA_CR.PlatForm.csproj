@@ -26,7 +26,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>20</ApplicationRevision>
+    <ApplicationRevision>50</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -74,7 +74,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\IBatisNet.DataMapper.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\log4net.dll</HintPath>
     </Reference>
@@ -160,10 +160,6 @@
     <Compile Include="Views\ClassRoomInfoPageView.xaml.cs">
       <DependentUpon>ClassRoomInfoPageView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindowOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -176,6 +172,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainWindowOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\CompusPageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -258,6 +258,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Lib\log4net.dll" />
     <Content Include="Lib\OpenWebKitSharp.dll" />
     <Content Include="Lib\WebKit.dll" />
     <Content Include="Lib\WebKit.Interop.dll" />
@@ -273,8 +274,6 @@
     <Content Include="Lib\IBatisNet.DataMapper.dll" />
     <Content Include="Lib\ICSharpCode.SharpZipLib.dll" />
     <Content Include="Lib\InputSimulator.dll" />
-    <Content Include="Lib\log4net.dll" />
-    <Resource Include="Lib\log4net.xml" />
     <Content Include="Lib\Microsoft.Expression.Drawing.dll" />
     <Content Include="Lib\Microsoft.Expression.Interactions.dll" />
     <Content Include="Lib\Microsoft.Office.Interop.Excel.dll" />

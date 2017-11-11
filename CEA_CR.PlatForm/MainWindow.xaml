@@ -14,8 +14,8 @@
                 <Framework:DishesButton x:Name="TeacherPart" HorizontalAlignment="Left" Margin="450,150,0,50" VerticalAlignment="Top" DishesName="教师查询"/>
                 <Framework:DishesButton x:Name="StudentPart" HorizontalAlignment="Left" Margin="750,150,0,50" VerticalAlignment="Top" DishesName="学员查询"/>
 
-                <TextBlock Text="更多内容请关注" Margin="890,322,0,50" FontSize="8" />
-                <TextBlock Text="研发中心微信公众号" Margin="880,331,0,50" FontSize="9" />
+                <TextBlock Text="更多内容请关注" Margin="890,318,0,50" FontSize="8" />
+                <TextBlock Text="研发中心微信公众号" Margin="880,328,0,50" FontSize="9" />
                 <Image Height="55" HorizontalAlignment="Left" Margin="890,340,0,50" Name="imageWX" Stretch="Fill" VerticalAlignment="Top" Width="55" />
             </Grid>
         </Viewbox>

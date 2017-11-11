@@ -31,8 +31,8 @@ namespace Framework
             lstSearchResult.Visibility = Visibility.Hidden;
             lblHidResultList.Visibility = Visibility.Hidden;
 		}
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(UserTextBox), new FrameworkPropertyMetadata(string.Empty));
-        public static readonly DependencyProperty ReadOnlyProperty = DependencyProperty.Register("ReadOnly", typeof(bool), typeof(UserTextBox), new FrameworkPropertyMetadata(false));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(AutoCompleteTextBoxNew), new FrameworkPropertyMetadata(string.Empty));
+        public static readonly DependencyProperty ReadOnlyProperty = DependencyProperty.Register("ReadOnly", typeof(bool), typeof(AutoCompleteTextBoxNew), new FrameworkPropertyMetadata(false));
 
 
         private Timer keypressTimer;
