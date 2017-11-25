@@ -13,6 +13,12 @@ using CEA_CR.PlatForm.Utils;
 
 namespace CEA_CR.PlatForm.Models
 {
+    //原始库里的对象转换成前台要看的对象
+    public class ClassInfoVModel : NotificationObject
+    {
+        public CourseScheduleItem info { get; set; }
+    }
+
     //页面对象
     public class ClassInfoPageModel : ObservableCollection<ClassInfoVModel>
     {
@@ -33,11 +39,11 @@ namespace CEA_CR.PlatForm.Models
         public ClassInfoPageModel()
         {
             List<ClassInfoVModel> list = new List<ClassInfoVModel>();
-            for (int i = 1; i < 101; i++)
-            {
-                list.Add(new ClassInfoVModel { ClassRoom = "教室" + i.ToString(), StartTime = "2016-10-10 09:00", EndTime = "2016-10-10 11:00", TeacherName = "老师" + i.ToString(), tbClassInfo = new ClassInfo { Name = "课程" + i.ToString() } });
+            //for (int i = 1; i < 101; i++)
+            //{
+            //    list.Add(new ClassRoomInfoVModel { info = new CurrentCourseResponse { classId = "班级编号" + i.ToString(), className = "班级名称" + i.ToString(), courseId = "课程编号" + i.ToString(), courseName = "课程名称" + i.ToString(), time = "开课时间" } });
 
-            }
+            //}
             ResetData(list);
         }
 

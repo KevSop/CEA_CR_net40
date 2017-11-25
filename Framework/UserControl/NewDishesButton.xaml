@@ -1,0 +1,25 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="Framework.NewDishesButton"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480">
+	<UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderThickness="0.5" BorderBrush="Transparent" Name="b1">
+	<Grid x:Name="LayoutRoot">
+        <Image Stretch="Fill" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Name="image2" Source="/Framework;component/UserControl/business-pic.png" />
+        <Image Margin="0,0,0,0" Width="0" Height="0" HorizontalAlignment="Left" VerticalAlignment="Top" Name="image1"></Image>
+        <Button x:Name="button" Content="" HorizontalAlignment="Left" Margin="0,0,0,0" Width="100" Height="100" VerticalAlignment="Top" BorderThickness="0" Click="Button_Click" Style="{DynamicResource ResourceKey=DishesButtonStyle}" GotFocus="button_GotFocus" LostFocus="button_LostFocus">
+        </Button>
+	</Grid>
+    </Border>
+</UserControl>

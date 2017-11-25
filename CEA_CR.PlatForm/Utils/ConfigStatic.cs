@@ -12,6 +12,8 @@ namespace CEA_CR.PlatForm.Utils
         private static string _password;
         private static string _GetCurrentCourseUrl;
         private static string _GetCourseScheduleUrl;
+        private static string _GetClassInfoUrl;
+        private static string _GetCourseScheduleByBJUrl;
         public static string userName
         {
             get
@@ -62,5 +64,31 @@ namespace CEA_CR.PlatForm.Utils
                 return _GetCourseScheduleUrl;
             }
         }
+        public static string GetClassInfoUrl
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_GetClassInfoUrl))
+                {
+                    string config = System.Configuration.ConfigurationManager.AppSettings["GetClassInfoUrl"];
+                    _GetClassInfoUrl = config;
+                }
+                return _GetClassInfoUrl;
+            }
+        }
+        public static string GetCourseScheduleByBJUrl
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_GetCourseScheduleByBJUrl))
+                {
+                    string config = System.Configuration.ConfigurationManager.AppSettings["GetCourseScheduleByBJUrl"];
+                    _GetCourseScheduleByBJUrl = config;
+                }
+                return _GetCourseScheduleByBJUrl;
+            }
+        }
+
+        
     }
 }

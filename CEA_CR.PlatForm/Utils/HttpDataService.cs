@@ -149,6 +149,143 @@ namespace CEA_CR.PlatForm.Utils
                
             return result;
         }
+
+        public List<ClassInfoItem> GetSearchClassInfoList(string className)
+        {
+            List<ClassInfoItem> result = new List<ClassInfoItem>();
+
+            if (string.IsNullOrWhiteSpace(className))
+            {
+                return result;
+            }
+
+            #region 测试数据
+            //result.Add(new ClassInfoItem { ClassId = "JS-A30", ClassName = "青浦A30班" });
+            //result.Add(new ClassInfoItem { ClassId = "JS-A31", ClassName = "青浦A31班" });
+            //result.Add(new ClassInfoItem { ClassId = "JS-A32", ClassName = "青浦A32班" });
+            //result.Add(new ClassInfoItem { ClassId = "JS-A33", ClassName = "青浦A33班" });
+            //result.Add(new ClassInfoItem { ClassId = "JS-A34", ClassName = "青浦A34班" });
+            //result.Add(new ClassInfoItem { ClassId = "HQ-A35", ClassName = "虹桥A35班" });
+            //result.Add(new ClassInfoItem { ClassId = "HQ-A36", ClassName = "虹桥A36班" });
+            //result.Add(new ClassInfoItem { ClassId = "HQ-A37", ClassName = "虹桥A37班" });
+            //result.Add(new ClassInfoItem { ClassId = "HQ-A38", ClassName = "虹桥A38班" });
+            //result.Add(new ClassInfoItem { ClassId = "HQ-A39", ClassName = "虹桥A39班" });
+            //return result;
+            #endregion
+
+
+            string responseJson = HttpHelper.GetHttpResponse(string.Format(ConfigStatic.GetClassInfoUrl, ConfigStatic.userName, ConfigStatic.password, className));
+
+            var response = JsonConvert.DeserializeObject<ClassInfoItemResponse>(responseJson);
+            if (response != null)
+            {
+                result = response.classInfoList;
+            }
+
+            return result;
+        }
+
+        public List<CourseScheduleItem> GetCourseScheduleByClassInfo(string classID, string month)
+        {
+            List<CourseScheduleItem> result = new List<CourseScheduleItem>();
+
+            if (string.IsNullOrWhiteSpace(classID))
+            {
+                return result;
+            }
+
+            #region 测试数据
+            //result.Add(new CourseScheduleItem { classId = "27305333", className = "新雇员训练1671（本部）", courseId = "734", courseName = "机上服务标准与程序操作", place = "710", t_date = "2016-10-29", time = "07:30", roomNo = "JS-050" });
+            //result.Add(new CourseScheduleItem { classId = "27305333", className = "新雇员训练1671（本部）", courseId = "610", courseName = "旅客特殊服务", place = "550", t_date = "2016-10-20", time = "14:30", roomNo = "JS-030" });
+            //return result;
+            #endregion
+
+            string cacheKey = string.Format("classInfoSchedule:{0}-{1}", classID, month);
+            result = CacheHelper.CacheManager.Get<List<CourseScheduleItem>>(cacheKey);
+            if (result == null || result.Count == 0)
+            {
+                string responseJson = HttpHelper.GetHttpResponse(string.Format(ConfigStatic.GetCourseScheduleByBJUrl, ConfigStatic.userName, ConfigStatic.password, classID, month));
+
+                if (true)
+                {
+                    var response = JsonConvert.DeserializeObject<CourseScheduleResponse>(responseJson);
+                    if (response != null)
+                    {
+                        result = response.courseAndClassList;
+                    }
+                }
+                else
+                {
+                    using (StringReader rdr = new StringReader(responseJson))
+                    {
+                        XmlSerializer serializer = new XmlSerializer(typeof(CourseScheduleResponse));
+                        var response = (CourseScheduleResponse)serializer.Deserialize(rdr);
+                        if (response != null)
+                        {
+                            result = response.courseAndClassList;
+                        }
+                    }
+                }
+
+                if (result != null && result.Count > 0)
+                {
+                    result = result.OrderByDescending(r => r.t_date).ThenByDescending(r => r.time).ThenBy(r => r.courseName).ToList();
+                    CacheHelper.CacheManager.Set(cacheKey, result, 10);
+                }
+            }
+            return result;
+        }
+
+        public List<CourseScheduleItem> GetCourseScheduleByClassInfo(string classID)
+        {
+            List<CourseScheduleItem> result = new List<CourseScheduleItem>();
+
+            if (string.IsNullOrWhiteSpace(classID))
+            {
+                return result;
+            }
+
+            //#region 测试数据
+            result.Add(new CourseScheduleItem { classId = "27305333", className = "新雇员训练1671（本部）", courseId = "734", courseName = "机上服务标准与程序操作", place = "710", t_date = "2016-10-29", time = "07:30", roomNo = "JS-050" });
+            result.Add(new CourseScheduleItem { classId = "27305333", className = "新雇员训练1671（本部）", courseId = "610", courseName = "旅客特殊服务", place = "550", t_date = "2016-10-20", time = "14:30", roomNo = "JS-030" });
+            return result;
+            //#endregion
+
+            string cacheKey = string.Format("classInfoSchedule:{0}", classID);
+            result = CacheHelper.CacheManager.Get<List<CourseScheduleItem>>(cacheKey);
+            if (result == null || result.Count == 0)
+            {
+                string responseJson = HttpHelper.GetHttpResponse(string.Format(ConfigStatic.GetCourseScheduleUrl, ConfigStatic.userName, ConfigStatic.password, classID));
+
+                if (true)
+                {
+                    var response = JsonConvert.DeserializeObject<CourseScheduleResponse>(responseJson);
+                    if (response != null)
+                    {
+                        result = response.courseAndClassList;
+                    }
+                }
+                else
+                {
+                    using (StringReader rdr = new StringReader(responseJson))
+                    {
+                        XmlSerializer serializer = new XmlSerializer(typeof(CourseScheduleResponse));
+                        var response = (CourseScheduleResponse)serializer.Deserialize(rdr);
+                        if (response != null)
+                        {
+                            result = response.courseAndClassList;
+                        }
+                    }
+                }
+
+                if (result != null && result.Count > 0)
+                {
+                    result = result.OrderByDescending(r => r.t_date).ThenByDescending(r => r.time).ThenBy(r => r.courseName).ToList();
+                    CacheHelper.CacheManager.Set(cacheKey, result, 10);
+                }
+            }
+            return result;
+        }
     }
 
     public class CurrentCourseResponse
@@ -191,6 +328,17 @@ namespace CEA_CR.PlatForm.Utils
     {
         public string roomId { get; set; }
         public string roomName { get; set; }
+    }
+
+    public class ClassInfoItemResponse
+    {
+        public List<ClassInfoItem> classInfoList;
+    }
+
+    public class ClassInfoItem
+    {
+        public string ClassId { get; set; }
+        public string ClassName { get; set; }
     }
 
 }

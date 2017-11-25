@@ -108,6 +108,15 @@
       <DependentUpon>AutoCompleteTextBoxNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControl\AutoCompleteItem.cs" />
+    <Compile Include="UserControl\SearchBoxClassInfoNew.xaml.cs">
+      <DependentUpon>SearchBoxClassInfoNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\SearchBoxClassInfo.xaml.cs">
+      <DependentUpon>SearchBoxClassInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\NewDishesButton.xaml.cs">
+      <DependentUpon>NewDishesButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\SearchBoxClassRoomNew.xaml.cs">
       <DependentUpon>SearchBoxClassRoomNew.xaml</DependentUpon>
     </Compile>
@@ -269,6 +278,12 @@
     <Resource Include="UserControl\confirm-bg.png" />
     <Resource Include="UserControl\book-icon.png" />
     <Resource Include="UserControl\company1.jpg" />
+    <Resource Include="UserControl\ceaclass.png" />
+    <Resource Include="UserControl\ceastudent.png" />
+    <Resource Include="UserControl\ceateacher.png" />
+    <Resource Include="UserControl\ceaclassselected.png" />
+    <Resource Include="UserControl\ceastudentselected.png" />
+    <Resource Include="UserControl\ceateacherselected.png" />
     <Content Include="UserControl\gray-btn-active.png" />
     <Content Include="UserControl\gray-btn-disabled.png" />
     <Content Include="UserControl\gray-btn.png" />
@@ -339,6 +354,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControl\AutoCompleteTextBoxNew.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl\SearchBoxClassInfoNew.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl\SearchBoxClassInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl\NewDishesButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

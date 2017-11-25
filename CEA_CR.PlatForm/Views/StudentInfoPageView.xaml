@@ -65,6 +65,7 @@
             <Button Content="下一页" Command="{Binding PageDownCommand}" CommandParameter="{Binding ElementName=lvMain}" IsEnabled="{Binding Path=CanPageDownDisplay}" Grid.Row="1" Height="50" HorizontalAlignment="Left" Margin="594,664,0,0" Name="button2" VerticalAlignment="Top" Width="80"  Style="{StaticResource ResourceKey=simpleButtonStyle}" Grid.Column="1"/>
             <Label  Content="" Name="lbPageInfo" Grid.Column="1" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="203,666,0,0"  VerticalAlignment="Top"  FontSize="12" FontFamily="Microsoft YaHei" Foreground="#FF675446"/>
             <Label Content="学生查询" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="320" Height="40" FontSize="25" Foreground="White" />
+            <Label  Content="您的查询结果为空。" Name="lbEmptyTip" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="-300,666,0,0"  VerticalAlignment="Top"  FontSize="13" FontFamily="Microsoft YaHei" Foreground="#FF0000"/>
         </Grid>
     </Viewbox>
 </Window>

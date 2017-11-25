@@ -26,7 +26,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>50</ApplicationRevision>
+    <ApplicationRevision>51</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -96,6 +96,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -125,25 +126,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainWindowBak.xaml.cs">
+      <DependentUpon>MainWindowBak.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindowOld.xaml.cs">
       <DependentUpon>MainWindowOld.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClassInfoPageModel.cs" />
     <Compile Include="Models\StudentInfoPageModel.cs" />
     <Compile Include="Models\TeacherInfoPageModel.cs" />
     <Compile Include="Models\ClassRoomInfoPageModel.cs" />
     <Compile Include="Utils\CacheUtility.cs" />
     <Compile Include="Utils\ConfigStatic.cs" />
+    <Compile Include="Utils\WeatherHelper.cs" />
     <Compile Include="Utils\HttpDataService.cs" />
     <Compile Include="Utils\HttpHelper.cs" />
     <Compile Include="Utils\IEVersion.cs" />
+    <Compile Include="ViewModels\ClassInfoPageViewModel.cs" />
+    <Compile Include="ViewModels\ClassInfoPageViewModelBak.cs" />
     <Compile Include="ViewModels\StudentInfoPageViewModel.cs" />
     <Compile Include="ViewModels\TeacherInfoPageViewModel.cs" />
     <Compile Include="ViewModels\ClassRoomInfoPageViewModel.cs" />
+    <Compile Include="Views\ClassInfoPageViewBak.xaml.cs">
+      <DependentUpon>ClassInfoPageViewBak.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CompusPageView.xaml.cs">
       <DependentUpon>CompusPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CompanyPageView.xaml.cs">
       <DependentUpon>CompanyPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClassInfoPageView.xaml.cs">
+      <DependentUpon>ClassInfoPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SearchBoxClassRoomNew.xaml.cs">
       <DependentUpon>SearchBoxClassRoomNew.xaml</DependentUpon>
@@ -172,7 +186,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainWindowBak.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindowOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ClassInfoPageViewBak.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -181,6 +203,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CompanyPageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ClassInfoPageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -258,6 +284,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\ceabg.jpg" />
+    <Resource Include="Images\ceawxgzh.png" />
+    <Resource Include="Images\cealogo.png" />
     <Content Include="Lib\log4net.dll" />
     <Content Include="Lib\OpenWebKitSharp.dll" />
     <Content Include="Lib\WebKit.dll" />

@@ -7,7 +7,7 @@
 	x:Class="Framework.AutoCompleteTextBoxNew"
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480">
-	<Border BorderBrush="#FFCAC3BA" BorderThickness="1" Height="50" VerticalAlignment="Top" CornerRadius="2" x:Name="b1" HorizontalAlignment="Left" Width="304" Background="White">
+	<Border BorderBrush="#FFCAC3BA" BorderThickness="1" Height="50" VerticalAlignment="Top" CornerRadius="2" x:Name="b1" HorizontalAlignment="Left" Width="305" Background="White">
 		<Canvas Margin="-1" OpacityMask="Black">
 			<Border BorderBrush="Black" BorderThickness="0" Height="48" Width="100" Background="#FFEEE7DE" CornerRadius="2" Canvas.Left="1" Canvas.Top="1" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<Label  Content="字段名称" FontSize="14" Foreground="#FF776B5F" FontFamily="SimSun" Name="lbl" Width="97" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />

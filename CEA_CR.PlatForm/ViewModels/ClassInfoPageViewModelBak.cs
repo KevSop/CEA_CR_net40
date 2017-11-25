@@ -22,11 +22,10 @@ using System.ComponentModel.Composition;
 using System.Data;
 using System.Threading;
 using CEA_CR.PlatForm.Utils;
-using Framework;
 
 namespace CEA_CR.PlatForm.ViewModels
 {
-    public class ClassInfoPageViewModel : NotificationObject
+    public class ClassInfoPageViewModelBak : NotificationObject
     {
         private Window window;
         private ListView lvMain;
@@ -237,15 +236,14 @@ namespace CEA_CR.PlatForm.ViewModels
                 {
                     searchCommand = new DelegateCommand(delegate()
                     {
-                        //Framework.SearchBoxClassInfo sb = new Framework.SearchBoxClassInfo();
-                        Framework.SearchBoxClassInfoNew sb = new Framework.SearchBoxClassInfoNew(getSearchResult);
+                        Framework.SearchBoxClassInfo sb = new Framework.SearchBoxClassInfo();
                         sb.Topmost = true;
                         if (sb.ShowDialog().Value)
                         {
                             List<ClassInfoVModel> searchResult = new List<ClassInfoVModel>();
                             //此处过滤查询 Mark todo
                             HttpDataService service = new HttpDataService();
-                            List<CourseScheduleItem> currentCourse = service.GetCourseScheduleByClassInfo(sb.ClassSearchValue, sb.StartValue.ToString("yyyy-MM"));
+                            List<CourseScheduleItem> currentCourse = service.GetCourseScheduleByClassInfo(sb.ClassInfoSearch);
                             if (currentCourse != null)
                             {
                                 foreach (var item in currentCourse)
@@ -261,11 +259,10 @@ namespace CEA_CR.PlatForm.ViewModels
                             lbPageInfo.Content = string.Format("当前第{0}页，共{1}页", _currentPage, _totalPage);
 
                             lbEmptyTip.Visibility = searchResult.Count == 0 ? Visibility.Visible : Visibility.Hidden;
+                        
                         }
 
                     });
-
-
                 }
                 return searchCommand;
             }
@@ -328,21 +325,6 @@ namespace CEA_CR.PlatForm.ViewModels
             }
         }
         #endregion
-
-        public List<AutoCompleteItem> getSearchResult(string searchKey)
-        {
-            List<AutoCompleteItem> result = new List<AutoCompleteItem>();
-
-            HttpDataService service = new HttpDataService();
-            List<ClassInfoItem> classInfoList = service.GetSearchClassInfoList(searchKey);
-
-            if (classInfoList != null)
-            {
-                result = classInfoList.Select(r => new AutoCompleteItem() { Text = r.ClassName, Value = r.ClassId }).ToList();
-            }
-
-            return result;
-        }
 
     }
 }

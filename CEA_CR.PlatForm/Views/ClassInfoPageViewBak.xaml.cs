@@ -18,9 +18,9 @@ namespace CEA_CR.PlatForm.Views
     /// <summary>
     /// Course.xaml 的交互逻辑
     /// </summary>
-    public partial class ClassInfoPageView : Window
+    public partial class ClassInfoPageViewBak : Window
     {
-        public ClassInfoPageView()
+        public ClassInfoPageViewBak()
         {
             InitializeComponent();
             this.DataContext = new ClassInfoPageViewModel();

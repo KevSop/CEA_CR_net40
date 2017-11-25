@@ -1,4 +1,4 @@
-﻿<Window xmlns:my="clr-namespace:Framework;assembly=Framework"  x:Class="CEA_CR.PlatForm.Views.ClassInfoPageView"
+﻿<Window xmlns:my="clr-namespace:Framework;assembly=Framework"  x:Class="CEA_CR.PlatForm.Views.ClassInfoPageViewBak"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CEA_CR.PlatForm.ViewModels"
         xmlns:Event="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         Width="1024" 
-        Height="768" Title="Course" WindowStyle="None" x:Name="w" Topmost="True"
+        Height="768" Title="ClassInfo" WindowStyle="None" x:Name="w" Topmost="True"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <Window.DataContext>
-        <local:ClassRoomInfoPageViewModel/>
+        <local:ClassInfoPageViewModel/>
     </Window.DataContext>
     <Event:Interaction.Triggers>
         <Event:EventTrigger EventName="Loaded">
@@ -41,14 +41,16 @@
                 <Button Content="退出"    Style="{StaticResource ResourceKey=MainButtonstyle150}"  Margin="5,0,10,0" Width="150" Height="50" Padding="5"  Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=w}"/>
             </StackPanel>
 
-            <ListView AlternationCount="2" Name="lvMain" Margin="10,21,10,76" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}" HorizontalContentAlignment="Stretch"  my:ListViewBehavior.HeaderSort="True" Width="1004" Grid.ColumnSpan="2" >
+            <ListView AlternationCount="2"  Name="lvMain" Margin="10,21,10,76" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}" HorizontalContentAlignment="Stretch"  my:ListViewBehavior.HeaderSort="True" Width="1004" Grid.ColumnSpan="2" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="120" Header="课程编号" DisplayMemberBinding="{Binding Path= info.courseId}" my:ListViewBehavior.SortField="info.courseId"></GridViewColumn>
-                        <GridViewColumn Width="280" Header="课程名称" DisplayMemberBinding="{Binding Path= info.courseName}" my:ListViewBehavior.SortField="info.courseName"></GridViewColumn>
+                        <GridViewColumn Width="200" Header="课程名称" DisplayMemberBinding="{Binding Path= info.courseName}" my:ListViewBehavior.SortField="info.courseName"></GridViewColumn>
                         <GridViewColumn Width="120" Header="班级编号" DisplayMemberBinding="{Binding Path= info.classId}" my:ListViewBehavior.SortField="info.classId"></GridViewColumn>
-                        <GridViewColumn Width="280" Header="班级名称" DisplayMemberBinding="{Binding Path= info.className}" my:ListViewBehavior.SortField="info.className"></GridViewColumn>
-                        <GridViewColumn Width="200" Header="授课时间" DisplayMemberBinding="{Binding Path= info.time}" my:ListViewBehavior.SortField="info.time"></GridViewColumn>
+                        <GridViewColumn Width="187" Header="班级名称" DisplayMemberBinding="{Binding Path= info.className}" my:ListViewBehavior.SortField="info.className"></GridViewColumn>
+                        <GridViewColumn Width="120" Header="课程日期" DisplayMemberBinding="{Binding Path= info.t_date}" my:ListViewBehavior.SortField="info.t_date"></GridViewColumn>
+                        <GridViewColumn Width="120" Header="授课时间" DisplayMemberBinding="{Binding Path= info.time}" my:ListViewBehavior.SortField="info.time"></GridViewColumn>
+                        <GridViewColumn Width="130" Header="授课地点" DisplayMemberBinding="{Binding Path= info.place}" my:ListViewBehavior.SortField="info.place"></GridViewColumn>
                     </GridView>
                 </ListView.View>
                 <Event:Interaction.Triggers>

@@ -30,6 +30,7 @@ namespace CEA_CR.PlatForm.ViewModels
         private Window window;
         private ListView lvMain;
         private Label lbPageInfo;
+        private Label lbEmptyTip;
 
 
         private TeacherInfoPageModel _teacherInfoPageModel;
@@ -183,6 +184,7 @@ namespace CEA_CR.PlatForm.ViewModels
                         this.window = w;
                         lvMain = w.FindName("lvMain") as ListView;
                         lbPageInfo = w.FindName("lbPageInfo") as Label;
+                        lbEmptyTip = w.FindName("lbEmptyTip") as Label;
                         Thread th1 = new Thread(delegate() { InitView(); });
                         th1.IsBackground = true; th1.Start();
 
@@ -255,6 +257,8 @@ namespace CEA_CR.PlatForm.ViewModels
                             _currentPage = 1;
                             lvMain.ItemsSource = DisplayList;
                             lbPageInfo.Content = string.Format("当前第{0}页，共{1}页", _currentPage, _totalPage);
+
+                            lbEmptyTip.Visibility = searchResult.Count == 0 ? Visibility.Visible : Visibility.Hidden;
                         }
 
                     });
