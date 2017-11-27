@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using System.Web;
 
 namespace CEA_CR.PlatForm.Utils
 {
@@ -174,20 +175,20 @@ namespace CEA_CR.PlatForm.Utils
             #endregion
 
 
-            string responseJson = HttpHelper.GetHttpResponse(string.Format(ConfigStatic.GetClassInfoUrl, ConfigStatic.userName, ConfigStatic.password, className));
+            string responseJson = HttpHelper.GetHttpResponse(string.Format(ConfigStatic.GetClassInfoUrl, ConfigStatic.userName, ConfigStatic.password, HttpUtility.UrlEncode(className)));
 
             var response = JsonConvert.DeserializeObject<ClassInfoItemResponse>(responseJson);
             if (response != null)
             {
-                result = response.classInfoList;
+                result = response.classList;
             }
 
             return result;
         }
 
-        public List<CourseScheduleItem> GetCourseScheduleByClassInfo(string classID, string month)
+        public List<CourseScheduleByBJItem> GetCourseScheduleByClassInfo(string classID, string month)
         {
-            List<CourseScheduleItem> result = new List<CourseScheduleItem>();
+            List<CourseScheduleByBJItem> result = new List<CourseScheduleByBJItem>();
 
             if (string.IsNullOrWhiteSpace(classID))
             {
@@ -201,44 +202,44 @@ namespace CEA_CR.PlatForm.Utils
             #endregion
 
             string cacheKey = string.Format("classInfoSchedule:{0}-{1}", classID, month);
-            result = CacheHelper.CacheManager.Get<List<CourseScheduleItem>>(cacheKey);
+            result = CacheHelper.CacheManager.Get<List<CourseScheduleByBJItem>>(cacheKey);
             if (result == null || result.Count == 0)
             {
                 string responseJson = HttpHelper.GetHttpResponse(string.Format(ConfigStatic.GetCourseScheduleByBJUrl, ConfigStatic.userName, ConfigStatic.password, classID, month));
 
                 if (true)
                 {
-                    var response = JsonConvert.DeserializeObject<CourseScheduleResponse>(responseJson);
+                    var response = JsonConvert.DeserializeObject<CourseScheduleByBJResponse>(responseJson);
                     if (response != null)
                     {
-                        result = response.courseAndClassList;
+                        result = response.classList;
                     }
                 }
                 else
                 {
                     using (StringReader rdr = new StringReader(responseJson))
                     {
-                        XmlSerializer serializer = new XmlSerializer(typeof(CourseScheduleResponse));
-                        var response = (CourseScheduleResponse)serializer.Deserialize(rdr);
+                        XmlSerializer serializer = new XmlSerializer(typeof(CourseScheduleByBJResponse));
+                        var response = (CourseScheduleByBJResponse)serializer.Deserialize(rdr);
                         if (response != null)
                         {
-                            result = response.courseAndClassList;
+                            result = response.classList;
                         }
                     }
                 }
 
                 if (result != null && result.Count > 0)
                 {
-                    result = result.OrderByDescending(r => r.t_date).ThenByDescending(r => r.time).ThenBy(r => r.courseName).ToList();
+                    result = result.OrderByDescending(r => r.T_DATE).ThenByDescending(r => r.TIME).ThenBy(r => r.COURSE_NAME).ToList();
                     CacheHelper.CacheManager.Set(cacheKey, result, 10);
                 }
             }
             return result;
         }
 
-        public List<CourseScheduleItem> GetCourseScheduleByClassInfo(string classID)
+        public List<CourseScheduleByBJItem> GetCourseScheduleByClassInfo(string classID)
         {
-            List<CourseScheduleItem> result = new List<CourseScheduleItem>();
+            List<CourseScheduleByBJItem> result = new List<CourseScheduleByBJItem>();
 
             if (string.IsNullOrWhiteSpace(classID))
             {
@@ -246,41 +247,41 @@ namespace CEA_CR.PlatForm.Utils
             }
 
             //#region 测试数据
-            result.Add(new CourseScheduleItem { classId = "27305333", className = "新雇员训练1671（本部）", courseId = "734", courseName = "机上服务标准与程序操作", place = "710", t_date = "2016-10-29", time = "07:30", roomNo = "JS-050" });
-            result.Add(new CourseScheduleItem { classId = "27305333", className = "新雇员训练1671（本部）", courseId = "610", courseName = "旅客特殊服务", place = "550", t_date = "2016-10-20", time = "14:30", roomNo = "JS-030" });
+            result.Add(new CourseScheduleByBJItem { CLASS_ID = "27305333", CLASS_NAME = "新雇员训练1671（本部）", COURSEID = "734", COURSE_NAME = "机上服务标准与程序操作", PLACE = "710", T_DATE = "2016-10-29", TIME = "07:30", ROOMNO = "JS-050" });
+            result.Add(new CourseScheduleByBJItem { CLASS_ID = "27305333", CLASS_NAME = "新雇员训练1671（本部）", COURSEID = "610", COURSE_NAME = "旅客特殊服务", PLACE = "550", T_DATE = "2016-10-20", TIME = "14:30", ROOMNO = "JS-030" });
             return result;
             //#endregion
 
             string cacheKey = string.Format("classInfoSchedule:{0}", classID);
-            result = CacheHelper.CacheManager.Get<List<CourseScheduleItem>>(cacheKey);
+            result = CacheHelper.CacheManager.Get<List<CourseScheduleByBJItem>>(cacheKey);
             if (result == null || result.Count == 0)
             {
                 string responseJson = HttpHelper.GetHttpResponse(string.Format(ConfigStatic.GetCourseScheduleUrl, ConfigStatic.userName, ConfigStatic.password, classID));
 
                 if (true)
                 {
-                    var response = JsonConvert.DeserializeObject<CourseScheduleResponse>(responseJson);
+                    var response = JsonConvert.DeserializeObject<CourseScheduleByBJResponse>(responseJson);
                     if (response != null)
                     {
-                        result = response.courseAndClassList;
+                        result = response.classList;
                     }
                 }
                 else
                 {
                     using (StringReader rdr = new StringReader(responseJson))
                     {
-                        XmlSerializer serializer = new XmlSerializer(typeof(CourseScheduleResponse));
-                        var response = (CourseScheduleResponse)serializer.Deserialize(rdr);
+                        XmlSerializer serializer = new XmlSerializer(typeof(CourseScheduleByBJResponse));
+                        var response = (CourseScheduleByBJResponse)serializer.Deserialize(rdr);
                         if (response != null)
                         {
-                            result = response.courseAndClassList;
+                            result = response.classList;
                         }
                     }
                 }
 
                 if (result != null && result.Count > 0)
                 {
-                    result = result.OrderByDescending(r => r.t_date).ThenByDescending(r => r.time).ThenBy(r => r.courseName).ToList();
+                    result = result.OrderByDescending(r => r.T_DATE).ThenByDescending(r => r.TIME).ThenBy(r => r.COURSE_NAME).ToList();
                     CacheHelper.CacheManager.Set(cacheKey, result, 10);
                 }
             }
@@ -307,6 +308,11 @@ namespace CEA_CR.PlatForm.Utils
         public List<CourseScheduleItem> courseAndClassList;
     }
 
+    public class CourseScheduleByBJResponse
+    {
+        public List<CourseScheduleByBJItem> classList;
+    }
+
     public class CourseScheduleItem
     {
         public string t_date { get; set; }
@@ -317,6 +323,18 @@ namespace CEA_CR.PlatForm.Utils
         public string time { get; set; }
         public string place { get; set; }
         public string roomNo { get; set; }
+    }
+
+    public class CourseScheduleByBJItem
+    {
+        public string COURSEID { get; set; }
+        public string ROOMNO { get; set; }
+        public string T_DATE { get; set; }
+        public string TIME { get; set; }
+        public string PLACE { get; set; }
+        public string CLASS_ID { get; set; }
+        public string CLASS_NAME { get; set; }
+        public string COURSE_NAME { get; set; }
     }
 
     public class RoomItemResponse
@@ -332,13 +350,13 @@ namespace CEA_CR.PlatForm.Utils
 
     public class ClassInfoItemResponse
     {
-        public List<ClassInfoItem> classInfoList;
+        public List<ClassInfoItem> classList;
     }
 
     public class ClassInfoItem
     {
-        public string ClassId { get; set; }
-        public string ClassName { get; set; }
+        public string ID { get; set; }
+        public string NAME { get; set; }
     }
 
 }

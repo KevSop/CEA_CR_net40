@@ -60,7 +60,8 @@ namespace CEA_CR.PlatForm
             }
 
             this.txtDate.Text = DateTime.Now.ToString("yyyy年 MM月dd日");
-            this.txtTimeAndWeather.Text = string.Format("{0} {1}", DateTime.Now.ToString("HH:mm"), weatherInfo);
+            this.txtTime.Text = DateTime.Now.ToString("HH:mm");
+            this.txtWeather.Text = weatherInfo;
 
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             aTimer.Interval = 1000 * 60;
@@ -97,19 +98,23 @@ namespace CEA_CR.PlatForm
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            string weatherInfo = string.Empty;
             if (DateTime.Now.Minute == 0)
             {
-                weatherInfo = WeatherHelper.GetWeather();
+                string weatherInfo = WeatherHelper.GetWeather();
                 if (string.IsNullOrWhiteSpace(weatherInfo))
                 {
                     weatherInfo = WeatherHelper.GetWeather2("上海");
                 }
+
+                Dispatcher.BeginInvoke(new Action(delegate
+                {
+                    this.txtWeather.Text = weatherInfo;
+                }));
             }
 
             Dispatcher.BeginInvoke(new Action(delegate {
                 this.txtDate.Text = DateTime.Now.ToString("yyyy年 MM月dd日");
-                this.txtTimeAndWeather.Text = string.Format("{0} {1}", DateTime.Now.ToString("HH:mm"), weatherInfo);
+                this.txtTime.Text = DateTime.Now.ToString("HH:mm");
             }));
         }
     }

@@ -55,7 +55,7 @@ namespace CEA_CR.PlatForm.ViewModels
                 if (_currentObject == null)
                 {
                     _currentObject = new ClassInfoVModel();
-                    _currentObject.info = new CourseScheduleItem();
+                    _currentObject.info = new CourseScheduleByBJItem();
                 }
                 return _currentObject;
             }
@@ -245,7 +245,7 @@ namespace CEA_CR.PlatForm.ViewModels
                             List<ClassInfoVModel> searchResult = new List<ClassInfoVModel>();
                             //此处过滤查询 Mark todo
                             HttpDataService service = new HttpDataService();
-                            List<CourseScheduleItem> currentCourse = service.GetCourseScheduleByClassInfo(sb.ClassSearchValue, sb.StartValue.ToString("yyyy-MM"));
+                            List<CourseScheduleByBJItem> currentCourse = service.GetCourseScheduleByClassInfo(sb.ClassSearchValue, sb.StartValue.ToString("yyyy-MM"));
                             if (currentCourse != null)
                             {
                                 foreach (var item in currentCourse)
@@ -312,12 +312,12 @@ namespace CEA_CR.PlatForm.ViewModels
                             var t = code.info;
                             if (t != null)
                             {
-                                CurrentObject.info.className = t.courseName;
+                                CurrentObject.info.CLASS_NAME = t.CLASS_NAME;
                                 //CurrentObject.tbClassRoomInfo.Name = t.Name;
                                 Framework.MessageBox mb = new Framework.MessageBox();
                                 //mb.Title = CurrentObject.tbClassRoomInfo.Name;
                                 mb.Title = "课程明细";
-                                mb.Message = "班级名称：" + t.className + ", 课程名称：" + t.courseName + ", 开课时间：" + t.time + ", 开课地点：" + t.place + ", 教室编号：" + t.roomNo;
+                                mb.Message = "班级名称：" + t.CLASS_NAME + ", 课程名称：" + t.COURSE_NAME + ", 开课时间：" + t.TIME + ", 开课地点：" + t.PLACE + ", 教室编号：" + t.ROOMNO;
                                 mb.Topmost = true;
                                 mb.ShowDialog();
                             }
@@ -338,7 +338,7 @@ namespace CEA_CR.PlatForm.ViewModels
 
             if (classInfoList != null)
             {
-                result = classInfoList.Select(r => new AutoCompleteItem() { Text = r.ClassName, Value = r.ClassId }).ToList();
+                result = classInfoList.Select(r => new AutoCompleteItem() { Text = r.NAME, Value = r.ID }).ToList();
             }
 
             return result;
