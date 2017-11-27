@@ -54,10 +54,6 @@ namespace CEA_CR.PlatForm
 
             //时间天气信息
             string weatherInfo = WeatherHelper.GetWeather();
-            if (string.IsNullOrWhiteSpace(weatherInfo))
-            {
-                weatherInfo = WeatherHelper.GetWeather2("上海");
-            }
 
             this.txtDate.Text = DateTime.Now.ToString("yyyy年 MM月dd日");
             this.txtTime.Text = DateTime.Now.ToString("HH:mm");
@@ -101,10 +97,6 @@ namespace CEA_CR.PlatForm
             if (DateTime.Now.Minute == 0)
             {
                 string weatherInfo = WeatherHelper.GetWeather();
-                if (string.IsNullOrWhiteSpace(weatherInfo))
-                {
-                    weatherInfo = WeatherHelper.GetWeather2("上海");
-                }
 
                 Dispatcher.BeginInvoke(new Action(delegate
                 {

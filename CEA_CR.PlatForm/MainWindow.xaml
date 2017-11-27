@@ -17,7 +17,7 @@
                 <TextBlock Name="txtDate" Text="2017年 11月11日" Margin="50,332,0,50" FontSize="13" Foreground="#4c4c4c" FontFamily="Microsoft YaHei" />
                 <TextBlock Name="txtTime" Text="10:00" Margin="50,347,0,50" FontSize="12" Foreground="#4c4c4c" FontFamily="Microsoft YaHei" />
                 <TextBlock Name="txtWeather" Text="晴 9~18℃" Margin="88,347,0,50" FontSize="12" Foreground="#4c4c4c" FontFamily="Microsoft YaHei" />
-                <Image Height="33" HorizontalAlignment="Left" Margin="50,370,0,50" Name="imageLogo" Stretch="Fill" VerticalAlignment="Top" Width="160" />
+                <Image Height="25" HorizontalAlignment="Left" Margin="50,370,0,50" Name="imageLogo" Stretch="Fill" VerticalAlignment="Top" Width="190" />
                 <Image Height="65" HorizontalAlignment="Left" Margin="810,340,0,50" Name="imageWX" Stretch="Fill" VerticalAlignment="Top" Width="170" />
             </Grid>
         </Viewbox>

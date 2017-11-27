@@ -13,14 +13,14 @@ namespace CEA_CR.PlatForm.Utils
 {
     public class WeatherHelper
     {
-        public static string WeatherInfoService = "http://tianqiapi.com/api.php?style=te&skin=pitaya";
-        public static string WeatherInfoService2 = "http://www.sojson.com/open/api/weather/json.shtml?city=";
-        
+        public static string WeatherInfoService1 = "http://wthrcdn.etouch.cn/weather_mini?citykey=101020100"; 
+        public static string WeatherInfoService2 = "http://tianqiapi.com/api.php?style=te&skin=pitaya";
+        public static string WeatherInfoService3 = "http://www.sojson.com/open/api/weather/json.shtml?city=";
 
         /// <summary>
         /// 获取天气
         /// </summary>
-        public static string GetWeather2(string cityName)
+        public static string GetWeather3(string cityName)
         {
             string weatherInfo = string.Empty;
 
@@ -29,7 +29,7 @@ namespace CEA_CR.PlatForm.Utils
                 try
                 {
                     cityName = HttpUtility.UrlEncode(cityName, Encoding.UTF8);
-                    string weatherJson = HttpHelper.GetHttpResponse(WeatherInfoService2 + cityName, 500, true);
+                    string weatherJson = HttpHelper.GetHttpResponse(WeatherInfoService3 + cityName, 500, true);
 
                     JObject root = (JObject)JsonConvert.DeserializeObject(weatherJson);
                     JObject data = (JObject)root["data"];
@@ -61,13 +61,13 @@ namespace CEA_CR.PlatForm.Utils
         /// <summary>
         /// 获取天气
         /// </summary>
-        public static string GetWeather()
+        public static string GetWeather2()
         {
             string weatherInfo = string.Empty;
 
             try
             {
-                string weatherJson = HttpHelper.GetHttpResponse(WeatherInfoService, 500, true);
+                string weatherJson = HttpHelper.GetHttpResponse(WeatherInfoService2, 500, true);
 
                 if (!string.IsNullOrWhiteSpace(weatherJson))
                 {
@@ -86,6 +86,62 @@ namespace CEA_CR.PlatForm.Utils
                 }
             }
             catch (Exception ex) { }
+
+            return weatherInfo;
+        }
+
+        /// <summary>
+        /// 获取天气
+        /// </summary>
+        public static string GetWeather1()
+        {
+            string weatherInfo = string.Empty;
+
+            try
+            {
+                string weatherJson = HttpHelper.GetHttpResponse(WeatherInfoService1, 500, true);
+
+                JObject root = (JObject)JsonConvert.DeserializeObject(weatherJson);
+                JObject data = (JObject)root["data"];
+                JArray weatherList = (JArray)data["forecast"];
+                if (weatherList != null && weatherList.Count > 0)
+                {
+                    string strDate = DateTime.Now.ToString("dd");
+                    foreach (var item in weatherList)
+                    {
+                        string date = item["date"].ToString();
+                        if (date.Contains(strDate))
+                        {
+                            weatherInfo = string.Format("{0} {1}~{2}", item["type"].ToString(),
+                                item["low"].ToString().Replace("低温 ", "").Replace("℃", ""),
+                                item["high"].ToString().Replace("高温 ", ""));
+
+                            break;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex) { }
+            
+
+            return weatherInfo;
+        }
+
+        /// <summary>
+        /// 获取天气
+        /// </summary>
+        public static string GetWeather()
+        {
+            string weatherInfo = GetWeather1();
+            if (string.IsNullOrWhiteSpace(weatherInfo))
+            {
+                weatherInfo = GetWeather2();
+            }
+            if (string.IsNullOrWhiteSpace(weatherInfo))
+            {
+                weatherInfo = GetWeather3("上海");
+            }
 
             return weatherInfo;
         }
