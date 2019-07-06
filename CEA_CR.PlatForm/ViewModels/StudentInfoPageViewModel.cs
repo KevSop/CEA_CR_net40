@@ -31,6 +31,7 @@ namespace CEA_CR.PlatForm.ViewModels
         private ListView lvMain;
         private Label lbPageInfo;
         private Label lbEmptyTip;
+        private Window SearchWindow;
 
 
         private StudentInfoPageModel _studentInfoPageModel;
@@ -237,28 +238,20 @@ namespace CEA_CR.PlatForm.ViewModels
                 {
                     searchCommand = new DelegateCommand(delegate()
                     {
-                        Framework.SearchBoxStudent sb = new Framework.SearchBoxStudent();
-                        sb.Topmost = true;
-                        if (sb.ShowDialog().Value)
+                        if (this.SearchWindow == null)
                         {
-                            List<StudentInfoVModel> searchResult = new List<StudentInfoVModel>();
-                            //searchResult.Add(new StudentInfoVModel { CourseName="查询出来的课程", ClassRoom = "阶梯教室", TeacherName = "王小六", StartTime = "2016-01-01 09:30", EndTime = "2016-01-01 11:30", tbStudentInfo = new StudentInfo { Name = sb.StudentSearch } });
-                            //此处调用查询接口查询结果
-                            HttpDataService service = new HttpDataService();
-                            List<CourseScheduleItem> currentCourse = service.GetCourseSchedule(sb.StudentSearch, sb.StartValue.ToString("yyyy-MM"), "1");
-                            if (currentCourse != null)
-                            {
-                                foreach (var item in currentCourse)
-                                {
-                                    searchResult.Add(new StudentInfoVModel { info = item });
-                                }
-                            }
-                            studentInfoPageModel.ResetData(searchResult);
-                            _currentPage = 1;
-                            lvMain.ItemsSource = DisplayList;
-                            lbPageInfo.Content = string.Format("当前第{0}页，共{1}页", _currentPage, _totalPage);
+                            Framework.SearchBoxStudent sb = new Framework.SearchBoxStudent();
+                            sb.CloseWindowAction = new Action<Framework.SearchBoxStudent, bool>(SearchBoxCloseAction);
+                            sb.Topmost = true;
 
-                            lbEmptyTip.Visibility = searchResult.Count == 0 ? Visibility.Visible : Visibility.Hidden;
+                            this.SearchWindow = sb;
+
+                            sb.Show();
+                        }
+                        else
+                        {
+                            this.SearchWindow.Topmost = true;
+                            this.SearchWindow.Activate();
                         }
 
                     });
@@ -282,6 +275,11 @@ namespace CEA_CR.PlatForm.ViewModels
                         _currentPage = 1;
                         lvMain.ItemsSource = DisplayList;
                         lbPageInfo.Content = "当前第1页，共1页";
+
+                        if (this.SearchWindow != null)
+                        {
+                            this.SearchWindow.Close();
+                        }
 
                         w.Close();
                     });
@@ -322,5 +320,32 @@ namespace CEA_CR.PlatForm.ViewModels
         }
         #endregion
 
+        public void SearchBoxCloseAction(Framework.SearchBoxStudent searchBox, bool windowResult)
+        {
+            this.SearchWindow = null;
+
+            if (windowResult)
+            {
+
+                List<StudentInfoVModel> searchResult = new List<StudentInfoVModel>();
+                //searchResult.Add(new StudentInfoVModel { CourseName="查询出来的课程", ClassRoom = "阶梯教室", TeacherName = "王小六", StartTime = "2016-01-01 09:30", EndTime = "2016-01-01 11:30", tbStudentInfo = new StudentInfo { Name = sb.StudentSearch } });
+                //此处调用查询接口查询结果
+                HttpDataService service = new HttpDataService();
+                List<CourseScheduleItem> currentCourse = service.GetCourseSchedule(searchBox.StudentSearch, searchBox.StartValue.ToString("yyyy-MM"), "1");
+                if (currentCourse != null)
+                {
+                    foreach (var item in currentCourse)
+                    {
+                        searchResult.Add(new StudentInfoVModel { info = item });
+                    }
+                }
+                studentInfoPageModel.ResetData(searchResult);
+                _currentPage = 1;
+                lvMain.ItemsSource = DisplayList;
+                lbPageInfo.Content = string.Format("当前第{0}页，共{1}页", _currentPage, _totalPage);
+
+                lbEmptyTip.Visibility = searchResult.Count == 0 ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
     }
 }

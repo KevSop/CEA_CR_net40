@@ -22,6 +22,8 @@ namespace Framework
     /// </summary>
     public partial class SearchBoxTeacher : Window
     {
+        public Action<SearchBoxTeacher, bool> CloseWindowAction { get; set; }
+
         public SearchBoxTeacher()
         {
             InitializeComponent();
@@ -42,13 +44,29 @@ namespace Framework
         //}
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            if (this.CloseWindowAction != null)
+            {
+                this.CloseWindowAction(this, true);
+            }
+            else    //模式窗体时使用
+            {
+                this.DialogResult = true;
+            }
+
             this.Close();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            if (this.CloseWindowAction != null)
+            {
+                this.CloseWindowAction(this, false);
+            }
+            else    //模式窗体时使用
+            {
+                this.DialogResult = false;
+            }
+
             this.Close();
         }
     }

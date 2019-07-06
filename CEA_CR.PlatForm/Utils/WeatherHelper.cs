@@ -15,45 +15,41 @@ namespace CEA_CR.PlatForm.Utils
     {
         public static string WeatherInfoService1 = "http://wthrcdn.etouch.cn/weather_mini?citykey=101020100"; 
         public static string WeatherInfoService2 = "http://tianqiapi.com/api.php?style=te&skin=pitaya";
-        public static string WeatherInfoService3 = "http://www.sojson.com/open/api/weather/json.shtml?city=";
+        public static string WeatherInfoService3 = "http://t.weather.sojson.com/api/weather/city/101020100";
 
         /// <summary>
         /// 获取天气
         /// </summary>
-        public static string GetWeather3(string cityName)
+        public static string GetWeather3()
         {
             string weatherInfo = string.Empty;
 
-            if (!string.IsNullOrWhiteSpace(cityName))
+            try
             {
-                try
+                string weatherJson = HttpHelper.GetHttpResponse(WeatherInfoService3, 500, true);
+
+                JObject root = (JObject)JsonConvert.DeserializeObject(weatherJson);
+                JObject data = (JObject)root["data"];
+                JArray weatherList = (JArray)data["forecast"];
+                if (weatherList != null && weatherList.Count > 0)
                 {
-                    cityName = HttpUtility.UrlEncode(cityName, Encoding.UTF8);
-                    string weatherJson = HttpHelper.GetHttpResponse(WeatherInfoService3 + cityName, 500, true);
-
-                    JObject root = (JObject)JsonConvert.DeserializeObject(weatherJson);
-                    JObject data = (JObject)root["data"];
-                    JArray weatherList = (JArray)data["forecast"];
-                    if (weatherList != null && weatherList.Count > 0)
+                    string strDate = DateTime.Now.ToString("dd");
+                    foreach (var item in weatherList)
                     {
-                        string strDate = DateTime.Now.ToString("dd");
-                        foreach (var item in weatherList)
+                        string date = item["date"].ToString();
+                        if (date.Contains(strDate) || (date.Length == 1 && date == int.Parse(strDate).ToString()) || date.StartsWith(int.Parse(strDate) + "日"))
                         {
-                           string date = item["date"].ToString();
-                           if(date.Contains(strDate))
-                           {
-                               weatherInfo = string.Format("{0} {1}~{2}", item["type"].ToString(),
-                                   item["low"].ToString().Replace("低温 ", "").Replace("℃", ""),
-                                   item["high"].ToString().Replace("高温 ", ""));
+                            weatherInfo = string.Format("{0} {1}~{2}", item["type"].ToString(),
+                                item["low"].ToString().Replace("低温 ", "").Replace("℃", ""),
+                                item["high"].ToString().Replace("高温 ", ""));
 
-                               break;
-                           }
-
+                            break;
                         }
+
                     }
                 }
-                catch (Exception ex){}
             }
+            catch (Exception ex){}
 
             return weatherInfo;
         }
@@ -77,11 +73,18 @@ namespace CEA_CR.PlatForm.Utils
                    {
                        string regexstr = @"(&(#)?.+;)|(<[^>]*>)";    //去除HTML标签
 
-                       weatherInfo = match.Groups[0].Value;
+                       Regex reg = new Regex(@"(?<=<(em)[^>]*>)(.*?)(?=</em>)", RegexOptions.IgnoreCase);   //取em标签的数据
+
+                       MatchCollection mc = reg.Matches(match.Groups[0].Value);
+
+                       foreach (Match m in mc)
+                       {
+                           weatherInfo += m.Value + " ";
+                       }
 
                        weatherInfo = Regex.Replace(weatherInfo, regexstr, "", RegexOptions.IgnoreCase);
 
-                       weatherInfo = weatherInfo.Replace("上海", "").Trim().Replace("°C~", "~");
+                       weatherInfo = weatherInfo.Replace("上海", "").Trim().Replace("°C~", "~").Replace("℃~", "~");
                    }
                 }
             }
@@ -110,7 +113,7 @@ namespace CEA_CR.PlatForm.Utils
                     foreach (var item in weatherList)
                     {
                         string date = item["date"].ToString();
-                        if (date.Contains(strDate))
+                        if (date.Contains(strDate) || date.StartsWith(int.Parse(strDate) + "日"))
                         {
                             weatherInfo = string.Format("{0} {1}~{2}", item["type"].ToString(),
                                 item["low"].ToString().Replace("低温 ", "").Replace("℃", ""),
@@ -140,7 +143,7 @@ namespace CEA_CR.PlatForm.Utils
             }
             if (string.IsNullOrWhiteSpace(weatherInfo))
             {
-                weatherInfo = GetWeather3("上海");
+                weatherInfo = GetWeather3();
             }
 
             return weatherInfo;

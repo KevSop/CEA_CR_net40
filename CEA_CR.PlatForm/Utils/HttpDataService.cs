@@ -34,7 +34,7 @@ namespace CEA_CR.PlatForm.Utils
             if (result == null || result.Count == 0)
             {
                 string responseJson = HttpHelper.GetHttpResponse(string.Format(ConfigStatic.GetCurrentCourseUrl, ConfigStatic.userName, ConfigStatic.password, classRoomId));
-                
+
                 if (true)
                 {
                     var response = JsonConvert.DeserializeObject<CurrentCourseResponse>(responseJson);

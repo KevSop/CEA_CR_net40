@@ -32,7 +32,7 @@ namespace CEA_CR.PlatForm.ViewModels
         private ListView lvMain;
         private Label lbPageInfo;
         private Label lbEmptyTip;
-
+        private Window SearchWindow;
 
         private ClassInfoPageModel _classInfoPageModel;
         public ClassInfoPageModel classInfoPageModel
@@ -237,32 +237,22 @@ namespace CEA_CR.PlatForm.ViewModels
                 {
                     searchCommand = new DelegateCommand(delegate()
                     {
-                        //Framework.SearchBoxClassInfo sb = new Framework.SearchBoxClassInfo();
-                        Framework.SearchBoxClassInfoNew sb = new Framework.SearchBoxClassInfoNew(getSearchResult);
-                        sb.Topmost = true;
-                        if (sb.ShowDialog().Value)
+                        if (this.SearchWindow == null)
                         {
-                            List<ClassInfoVModel> searchResult = new List<ClassInfoVModel>();
-                            //此处过滤查询 Mark todo
-                            HttpDataService service = new HttpDataService();
-                            List<CourseScheduleByBJItem> currentCourse = service.GetCourseScheduleByClassInfo(sb.ClassSearchValue, sb.StartValue.ToString("yyyy-MM"));
-                            if (currentCourse != null)
-                            {
-                                foreach (var item in currentCourse)
-                                {
-                                    searchResult.Add(new ClassInfoVModel { info = item });
-                                }
-                            }
-                            //此处调用查询接口查询结果
+                            //Framework.SearchBoxClassInfo sb = new Framework.SearchBoxClassInfo();
+                            Framework.SearchBoxClassInfoNew sb = new Framework.SearchBoxClassInfoNew(getSearchResult);
+                            sb.CloseWindowAction = new Action<Framework.SearchBoxClassInfoNew, bool>(SearchBoxCloseAction);
+                            sb.Topmost = true;
 
-                            classInfoPageModel.ResetData(searchResult);
-                            _currentPage = 1;
-                            lvMain.ItemsSource = DisplayList;
-                            lbPageInfo.Content = string.Format("当前第{0}页，共{1}页", _currentPage, _totalPage);
+                            this.SearchWindow = sb;
 
-                            lbEmptyTip.Visibility = searchResult.Count == 0 ? Visibility.Visible : Visibility.Hidden;
+                            sb.Show();
                         }
-
+                        else
+                        {
+                            this.SearchWindow.Topmost = true;
+                            this.SearchWindow.Activate();
+                        }
                     });
 
 
@@ -286,6 +276,11 @@ namespace CEA_CR.PlatForm.ViewModels
                         _currentPage = 1;
                         lvMain.ItemsSource = DisplayList;
                         lbPageInfo.Content = "当前第1页，共1页";
+
+                        if (this.SearchWindow != null)
+                        {
+                            this.SearchWindow.Close();
+                        }
 
                         w.Close();
                     });
@@ -342,6 +337,34 @@ namespace CEA_CR.PlatForm.ViewModels
             }
 
             return result;
+        }
+
+        public void SearchBoxCloseAction(Framework.SearchBoxClassInfoNew searchBox, bool windowResult)
+        {
+            this.SearchWindow = null;
+
+            if (windowResult)
+            {
+                List<ClassInfoVModel> searchResult = new List<ClassInfoVModel>();
+                //此处过滤查询 Mark todo
+                HttpDataService service = new HttpDataService();
+                List<CourseScheduleByBJItem> currentCourse = service.GetCourseScheduleByClassInfo(searchBox.ClassSearchValue, searchBox.StartValue.ToString("yyyy-MM"));
+                if (currentCourse != null)
+                {
+                    foreach (var item in currentCourse)
+                    {
+                        searchResult.Add(new ClassInfoVModel { info = item });
+                    }
+                }
+                //此处调用查询接口查询结果
+
+                classInfoPageModel.ResetData(searchResult);
+                _currentPage = 1;
+                lvMain.ItemsSource = DisplayList;
+                lbPageInfo.Content = string.Format("当前第{0}页，共{1}页", _currentPage, _totalPage);
+
+                lbEmptyTip.Visibility = searchResult.Count == 0 ? Visibility.Visible : Visibility.Hidden;
+            }
         }
 
     }
