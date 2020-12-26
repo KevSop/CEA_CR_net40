@@ -13,9 +13,9 @@ namespace CEA_CR.PlatForm.Utils
 {
     public class WeatherHelper
     {
-        public static string WeatherInfoService1 = "http://wthrcdn.etouch.cn/weather_mini?citykey=101020100"; 
+        public static string WeatherInfoService1 = "http://wthrcdn.etouch.cn/weather_mini?citykey=101020100";
         public static string WeatherInfoService2 = "http://tianqiapi.com/api.php?style=te&skin=pitaya";
-        public static string WeatherInfoService3 = "http://t.weather.sojson.com/api/weather/city/101020100";
+        public static string WeatherInfoService3 = "http://t.weather.itboy.net/api/weather/city/101020100";
 
         /// <summary>
         /// 获取天气
@@ -136,14 +136,14 @@ namespace CEA_CR.PlatForm.Utils
         /// </summary>
         public static string GetWeather()
         {
-            string weatherInfo = GetWeather1();
-            if (string.IsNullOrWhiteSpace(weatherInfo))
-            {
-                weatherInfo = GetWeather2();
-            }
+            string weatherInfo = GetWeather2();
             if (string.IsNullOrWhiteSpace(weatherInfo))
             {
                 weatherInfo = GetWeather3();
+            }
+            if (string.IsNullOrWhiteSpace(weatherInfo))
+            {
+                weatherInfo = GetWeather1();
             }
 
             return weatherInfo;

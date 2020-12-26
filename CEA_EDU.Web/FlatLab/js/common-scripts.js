@@ -55,15 +55,21 @@ var Script = function () {
             });
             $('#sidebar > ul').hide();
             $("#container").addClass("sidebar-closed");
+            $('.header').css({
+                'left': '0px'
+            });
         } else {
             $('#main-content').css({
                 'margin-left': '210px'
             });
             $('#sidebar > ul').show();
             $('#sidebar').css({
-                'margin-left': '0'
+                'margin-left': '0px'
             });
             $("#container").removeClass("sidebar-closed");
+            $('.header').css({
+                'left': '210px'
+            });
         }
     });
 

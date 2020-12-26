@@ -14,10 +14,9 @@
                 <Framework:NewDishesButton x:Name="StudentPart" HorizontalAlignment="Left" Margin="750,160,0,50" VerticalAlignment="Top" />
                 <TextBlock Text="东航技术应用研发中心" Margin="370,270,0,0" FontSize="27" Foreground="White" FontFamily="Microsoft YaHei" />
                 <TextBlock Text="教学信息查询系统" Margin="410,320,0,0" FontSize="22" Foreground="White" FontFamily="Microsoft YaHei" />
-                <TextBlock Name="txtDate" Text="2017年 11月11日" Margin="50,332,0,50" FontSize="13" Foreground="#4c4c4c" FontFamily="Microsoft YaHei" />
-                <TextBlock Name="txtTime" Text="10:00" Margin="50,347,0,50" FontSize="12" Foreground="#4c4c4c" FontFamily="Microsoft YaHei" />
-                <TextBlock Name="txtWeather" Text="晴 9~18℃" Margin="88,347,0,50" FontSize="12" Foreground="#4c4c4c" FontFamily="Microsoft YaHei" />
-                <Image Height="25" HorizontalAlignment="Left" Margin="50,370,0,50" Name="imageLogo" Stretch="Fill" VerticalAlignment="Top" Width="190" />
+                <TextBlock Name="txtDate" Text="2017年 11月11日" Margin="50,360,0,50" FontSize="13" Foreground="#eeeeee" FontFamily="Microsoft YaHei" />
+                <TextBlock Name="txtTime" Text="10:00" Margin="50,380,0,50" FontSize="12" Foreground="#eeeeee" FontFamily="Microsoft YaHei" />
+                <TextBlock Name="txtWeather" Text="晴 9~18℃" Margin="90,380,0,50" FontSize="12" Foreground="#eeeeee" FontFamily="Microsoft YaHei" />
                 <Image Height="65" HorizontalAlignment="Left" Margin="810,340,0,50" Name="imageWX" Stretch="Fill" VerticalAlignment="Top" Width="170" />
             </Grid>
         </Viewbox>

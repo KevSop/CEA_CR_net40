@@ -13,7 +13,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>66</ApplicationRevision>
+    <ApplicationRevision>70</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -291,6 +291,7 @@
     <Resource Include="Images\ceawxgzh.png" />
     <Resource Include="Images\cealogo.png" />
     <Resource Include="ceaedu.ico" />
+    <Resource Include="Images\ceabg2.jpg" />
     <Content Include="Lib\log4net.dll" />
     <Content Include="Lib\OpenWebKitSharp.dll" />
     <Content Include="Lib\WebKit.dll" />

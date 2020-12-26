@@ -45,7 +45,6 @@ namespace CEA_CR.PlatForm
             this.StudentPart.ButtonClick += StudentPart_ButtonClick;
 
             imageWX.Source = new BitmapImage(new Uri("Images/ceawxgzh.png", UriKind.Relative));
-            imageLogo.Source = new BitmapImage(new Uri("Images/cealogo.png", UriKind.Relative));
 
             if (System.Configuration.ConfigurationManager.AppSettings["IsDev"] == "true")
             {
